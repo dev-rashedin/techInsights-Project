@@ -1,39 +1,41 @@
-import { useQuery } from '@tanstack/react-query';
-import { axiosApi } from '../api/axiosApi';
-import useAuth from '../hooks/useAuth';
-import LoadingSpinner from './LoadingSpinner';
-import ErrorMessage from './ErrorMessage';
-import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
+import useAuth from '../hooks/useAuth';
+import { axiosApi } from '../api/axiosApi';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
-const LanguageQuiz = () => {
+const DemandingSector = () => {
   const [userVote, setUserVote] = useState(null);
   const { user } = useAuth();
 
+  // get user vote data
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axiosApi.get(`/lang-quiz/${user?.email}`);
-      setUserVote(data.votedLang);
+      const { data } = await axiosApi.get(`/demanding-sector/${user?.email}`);
+      console.log(data);
+
+      setUserVote(data.votedOption);
     };
 
-    if (user?.email) {
+    if (user) {
       fetchData();
     }
   }, [user?.email]);
 
-  // console.log(userVote);
+  // console.log(userVote)
+  
 
   // getting data from db
   const {
-    data: quizData = {},
+    data: voteData = {},
     refetch,
     error,
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ['lang-quiz'],
+    queryKey: ['demanding-sector'],
     queryFn: async () => {
-      const { data } = await axiosApi.get('/lang-quiz');
+      const { data } = await axiosApi.get('/demanding-sector');
       return data;
     },
     onError: (error) => {
@@ -41,32 +43,38 @@ const LanguageQuiz = () => {
     },
   });
 
-  // console.log(quizData);
+  // console.log(voteData);
 
-  const { totalVotes, languageVotes } = quizData;
+  const { totalVotes, demandingSectors } = voteData;
 
-  // console.log(totalVotes, languageVotes);
+  // console.log(totalVotes, demandingSectors);
 
   // get each language votes
-  const pythonVotes = languageVotes?.find(
-    (l) => l.language === 'python'
+  const machineLearningVotes = demandingSectors?.find(
+    (s) => s.sector === 'machineLearning'
   )?.votes;
 
-  const javascriptVotes = languageVotes?.find(
-    (l) => l.language === 'javascript'
+  const gameDevVotes = demandingSectors?.find(
+    (s) => s.sector === 'gameDev'
   )?.votes;
 
-  const rustVotes = languageVotes?.find((l) => l.language === 'rust')?.votes;
+  const webDevVotes = demandingSectors?.find(
+    (s) => s.sector === 'webDev'
+  )?.votes;
 
-  const goVotes = languageVotes?.find((l) => l.language === 'go')?.votes;
+  const appDevVotes = demandingSectors?.find(
+    (s) => s.sector === 'appDev'
+  )?.votes;
 
-  // console.log(pythonVotes, javascriptVotes, rustVotes, goVotes);
+  // console.log(machineLearningVotes, appDevVotes, webDevVotes, gameDevVotes)
 
-  // handle vote function
+  // get percentage
+  const getPercentage = (count) => ((count / totalVotes) * 100).toFixed(1);
+
   const handleVote = async (option) => {
-    const { data } = await axiosApi.post('/lang-quiz', {
+    const { data } = await axiosApi.post('/demanding-sector', {
       voterEmail: user?.email,
-      votedLang: option,
+      votedOption: option,
     });
 
     // console.log(data);
@@ -77,46 +85,35 @@ const LanguageQuiz = () => {
     }
   };
 
-  const getPercentage = (vote) => ((vote / totalVotes) * 100).toFixed(1);
-
-  // manage loading and error
-  if (isLoading) return <LoadingSpinner />;
-  if (isError) return <ErrorMessage error={error} />;
-
   return (
     <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto mt-8'>
       <h2 className='text-xl font-bold text-gray-900 dark:text-gray-100 text-center'>
-        Which Programming Language Will Dominate in 2024?
+        Which will be more demanding in the future?
       </h2>
-
-      {/* javascript */}
       <div className='mt-6'>
         <PollOption
-          option='JavaScript'
+          option='Web Development'
           userVote={userVote}
-          percentage={getPercentage(javascriptVotes)}
-          onVote={() => handleVote('javascript')}
+          percentage={getPercentage(webDevVotes)}
+          onVote={() => handleVote('webDev')}
         />
-        {/* python lang */}
         <PollOption
-          option='Python'
+          option='App Development'
           userVote={userVote}
-          percentage={getPercentage(pythonVotes)}
-          onVote={() => handleVote('python')}
+          percentage={getPercentage(appDevVotes)}
+          onVote={() => handleVote('appDev')}
         />
-        {/* rust lang */}
         <PollOption
-          option='Rust'
+          option='Machine Learning'
           userVote={userVote}
-          percentage={getPercentage(rustVotes)}
-          onVote={() => handleVote('rust')}
+          percentage={getPercentage(machineLearningVotes)}
+          onVote={() => handleVote('machineLearning')}
         />
-        {/* go lang */}
         <PollOption
-          option='Go'
+          option='Game Development'
           userVote={userVote}
-          percentage={getPercentage(goVotes)}
-          onVote={() => handleVote('go')}
+          percentage={getPercentage(gameDevVotes)}
+          onVote={() => handleVote('gameDev')}
         />
       </div>
       <p className='text-white text-center text-sm mt-4'>
@@ -137,15 +134,21 @@ const LanguageQuiz = () => {
   );
 };
 
-const PollOption = ({ option, percentage, userVote, onVote }) => (
+const PollOption = ({
+  option,
+  userVote,
+  percentage,
+  selectedOption,
+  onVote,
+}) => (
   <button
     onClick={onVote}
     className={`w-full p-3 my-2 text-left border rounded-lg transition-colors duration-300
-   ${
-     userVote && userVote === option.toLowerCase()
-       ? 'bg-blue-900 text-white border-2 hover:bg-blue-950'
-       : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
-   } hover:bg-gray-800 hover:text-white disabled:cursor-not-allowed`}
+      ${
+        userVote && userVote === option.toLowerCase()
+          ? 'bg-blue-900 text-white border-2 hover:bg-blue-950'
+          : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+      } hover:bg-gray-800 hover:text-white disabled:cursor-not-allowed`}
     disabled={userVote !== null}
   >
     <div className='flex justify-between items-center'>
@@ -161,4 +164,4 @@ const PollOption = ({ option, percentage, userVote, onVote }) => (
   </button>
 );
 
-export default LanguageQuiz;
+export default DemandingSector;
