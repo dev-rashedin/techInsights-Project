@@ -4,20 +4,29 @@ import useLoadArticles from "../hooks/useLoadArticles";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 import ArticleCard from "../components/ArticleCard";
+import { useQuery } from "@tanstack/react-query";
+import { axiosApi } from "../api/axiosApi";
 
 
 const PremiumArticles = () => {
   
-  const [articles, refetch, isLoading, isError, error] = useLoadArticles();
+  // const [articles, refetch, isLoading, isError, error] = useLoadArticles();
 
-  // console.log(articles)
-  
+  const {
+    data: premiumArticles = [],
+    refetch,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['premium-articles'],
+    queryFn: async () => {
+      const { data } = await axiosApi.get('/premium-articles');
+      return data;
+    },
+  });
 
-  const premiumArticles = articles.filter(
-    (article) => article.isPremium === 'yes'
-  );
-
-  // console.log(premiumArticles)
+  console.log(premiumArticles)
   
 
   if (isLoading) return <LoadingSpinner />;

@@ -120,7 +120,7 @@ const LanguageQuiz = () => {
         />
       </div>
       <p className='text-white text-center text-sm mt-4'>
-        You Have Voted for:{' '}
+        You've Voted For:{' '}
         <span className='font-wendy text-base text-faded-pearl ml-1'>
           {userVote
             ? userVote.slice(0, 1).toUpperCase() + userVote.slice(1)

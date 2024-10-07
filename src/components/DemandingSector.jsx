@@ -93,31 +93,35 @@ const DemandingSector = () => {
       <div className='mt-6'>
         <PollOption
           option='Web Development'
+          info='webDev'
           userVote={userVote}
           percentage={getPercentage(webDevVotes)}
           onVote={() => handleVote('webDev')}
         />
         <PollOption
           option='App Development'
+          info='appDev'
           userVote={userVote}
           percentage={getPercentage(appDevVotes)}
           onVote={() => handleVote('appDev')}
         />
         <PollOption
           option='Machine Learning'
+          info='machineLearning'
           userVote={userVote}
           percentage={getPercentage(machineLearningVotes)}
           onVote={() => handleVote('machineLearning')}
         />
         <PollOption
           option='Game Development'
+          info='gameDev'
           userVote={userVote}
           percentage={getPercentage(gameDevVotes)}
           onVote={() => handleVote('gameDev')}
         />
       </div>
       <p className='text-white text-center text-sm mt-4'>
-        You Have Voted for:{' '}
+        You've Voted For:{' '}
         <span className='font-wendy text-base text-faded-pearl ml-1'>
           {userVote
             ? userVote.slice(0, 1).toUpperCase() + userVote.slice(1)
@@ -138,14 +142,14 @@ const PollOption = ({
   option,
   userVote,
   percentage,
-  selectedOption,
+  info,
   onVote,
 }) => (
   <button
     onClick={onVote}
     className={`w-full p-3 my-2 text-left border rounded-lg transition-colors duration-300
       ${
-        userVote && userVote === option.toLowerCase()
+        userVote && userVote === info
           ? 'bg-blue-900 text-white border-2 hover:bg-blue-950'
           : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
       } hover:bg-gray-800 hover:text-white disabled:cursor-not-allowed`}
