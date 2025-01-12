@@ -35,8 +35,10 @@ const Subscription = () => {
       <Helmet>
         <title>Tech Insights || Subscription</title>
       </Helmet>
-      <PageTitle title='User Subscription' />
-      <div className='border-2 border-green-lantern py-8 -mt-4 mb-12 w-3/4 lg:w-1/2 mx-auto text-center space-y-2 rounded-xl border-dotted'>
+
+        <PageTitle title='User Subscription' />
+ 
+      <div className='border-2 border-green-lantern py-2 -mt-8 mb-8 w-3/4 lg:w-1/2 mx-auto text-center space-y-2 rounded-xl border-dotted'>
         {userData.subscription === 'premium' && (
           <p className='text-lg font-semibold '>
             You already are a premium subscriber.
@@ -49,6 +51,12 @@ const Subscription = () => {
             <span className='font-wendy ml-1 tracking-wider'>
               {formattedExpirationDate}
             </span>
+          </p>
+        )}
+
+        {userData.subscription !== 'premium' && (
+          <p className='text-lg font-semibold '>
+            Buy Premium Subscription to enjoy all features
           </p>
         )}
       </div>
