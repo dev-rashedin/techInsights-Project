@@ -10,12 +10,11 @@ const LanguageQuiz = () => {
   const [userVote, setUserVote] = useState(null);
   const { user } = useAuth();
 
+  // fetching user vote
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axiosApi.get(`/lang-quiz/${user?.email}`);
-      setUserVote(data.votedLang);
-      console.log(userVote)
-      
+      setUserVote(data.votedLang);     
     };
 
     if (user?.email) {
@@ -39,7 +38,7 @@ const LanguageQuiz = () => {
       return data;
     },
     onError: (error) => {
-      console.error('Error fetching user:', error);
+      console.error('Error fetching votes:', error);
     },
   });
 
@@ -121,23 +120,21 @@ const LanguageQuiz = () => {
           onVote={() => handleVote('go')}
         />
       </div>
-      <div>
-        <div className=' text-base text-faded-pearl ml-1 text-center mt-4'>
-          {userVote ? (
-            <p>
-              <span className='text-white text-center text-sm '>
-                {' '}
-                You've Voted For:{' '}
-              </span>{' '}
-              <span className='font-wendy'>
-                {' '}
-                {userVote.slice(0, 1).toUpperCase() + userVote.slice(1)}
-              </span>
-            </p>
-          ) : (
-            'Please Vote'
-          )}
-        </div>
+      <div className='  text-faded-pearl ml-1 text-center mt-4'>
+        {userVote ? (
+          <p>
+            <span className='text-white text-center text-sm '>
+              {' '}
+              You've Voted For:{' '}
+            </span>{' '}
+            <span className='font-wendy ml-1 text-base'>
+              {' '}
+              {userVote.slice(0, 1).toUpperCase() + userVote.slice(1)}
+            </span>
+          </p>
+        ) : (
+          'Please Vote'
+        )}
       </div>
       <p className='mt-4 text-gray-600 dark:text-gray-300 text-center'>
         Total Votes:{' '}

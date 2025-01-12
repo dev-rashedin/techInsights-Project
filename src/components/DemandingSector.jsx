@@ -12,7 +12,7 @@ const DemandingSector = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axiosApi.get(`/demanding-sector/${user?.email}`);
-      console.log(data);
+      // console.log(data);
 
       setUserVote(data.votedOption);
     };
@@ -120,14 +120,22 @@ const DemandingSector = () => {
           onVote={() => handleVote('gameDev')}
         />
       </div>
-      <p className='text-white text-center text-sm mt-4'>
-        You've Voted For:{' '}
-        <span className='font-wendy text-base text-faded-pearl ml-1'>
-          {userVote
-            ? userVote.slice(0, 1).toUpperCase() + userVote.slice(1)
-            : 'Please Vote'}
-        </span>
-      </p>
+      <div className='  text-faded-pearl ml-1 text-center mt-4'>
+        {userVote ? (
+          <p>
+            <span className='text-white text-center text-sm '>
+              {' '}
+              You've Voted For:{' '}
+            </span>{' '}
+            <span className='font-wendy ml-1 text-base'>
+              {' '}
+              {userVote.slice(0, 1).toUpperCase() + userVote.slice(1)}
+            </span>
+          </p>
+        ) : (
+          'Please Vote'
+        )}
+      </div>
       <p className='mt-4 text-gray-600 dark:text-gray-300 text-center'>
         Total Votes:{' '}
         <span className='text-lg ml-1 bg-yellow-900 p-1 rounded-full drop-shadow-xl text-white'>
