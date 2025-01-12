@@ -13,9 +13,11 @@ const Root = () => {
     location.pathname.includes('login') || location.pathname.includes('register');
 
   return (
-    <div className={`${theme}`}>
+    <div
+      className={`${theme} ${theme?.colors?.background} ${theme?.colors?.textPrimary}`}
+    >
       <div
-        className={`max-w-7xl mx-auto lg:px-4 font-raleway ${theme?.colors?.background} ${theme?.colors?.textPrimary} min-h-[83vh] pb-8`}
+        className={`max-w-7xl mx-auto lg:px-4 font-raleway  min-h-[83vh] pb-8`}
       >
         {noHeaderFooter || <Navbar />}
         <Outlet />
