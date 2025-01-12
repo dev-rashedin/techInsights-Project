@@ -70,9 +70,9 @@ const Navbar = () => {
 
   return (
     <div
-      className={`xl:px-8 ${theme?.colors.background} pt-2 lg:pt-4 -mb-3 sticky top-0 z-10`}
+      className={`lg:px-4 xl:px-8 ${theme?.colors.background} pt-2 lg:pt-4 -mb-3 sticky top-0 z-10`}
     >
-      <div className='flex justify-between w-full lg:px-2 py-2'>
+      <div className='flex justify-between items-center w-full lg:px-2 py-2'>
         <div className='flex-1 lg:-mt-2'>
           {/* dropdown: logo and menu for lg and other screens */}
           <div className='flex'>
@@ -80,7 +80,7 @@ const Navbar = () => {
               <div
                 tabIndex={0}
                 role='button'
-                className='btn btn-ghost hover:bg-transparent xl:hidden relative hover:scale-110'
+                className='btn btn-ghost hover:bg-transparent lg:hidden relative hover:scale-110'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -107,18 +107,18 @@ const Navbar = () => {
                 {/* theme controller */}
               </ul>
             </div>
-            <Link to='/' className='w-48 md:w-[210px] -ml-7 mt-2 xl:hidden'>
+            {/* <Link to='/' className='w-48 md:w-[210px] -ml-7 mt-2 xl:hidden'>
               <img src={logo} alt='' />
-            </Link>
+            </Link> */}
           </div>
 
           {/* logo and menu for xl screens */}
-          <div className='hidden xl:flex xl:items-center'>
-            <div className='w-[25%] -ml-7 mt-2'>
+          <div className='hidden lg:flex xl:items-center'>
+            {/* <div className='w-[25%] -ml-7 mt-2'>
               <Link to='/'>
                 <img className='w' src={logo} alt='' />
               </Link>
-            </div>
+            </div> */}
             <ul className=''>
               <Menu filteredItems={filteredItems} />
             </ul>
@@ -129,7 +129,7 @@ const Navbar = () => {
 
 navbar end
 */}
-        <div className=' flex gap-2 mr-4 xl:-mr-4 xl:mt-2 item-center'>
+        <div className=' flex gap-3 mr-4 xl:-mr-4 xl:mt-2 item-center'>
           {user ? (
             <div className='flex gap-2 items-center mt-1 lg:-mt-[3px]'>
               <div className='dropdown dropdown-end'>
@@ -197,7 +197,7 @@ navbar end
           )}
 
           {/* theme controller */}
-          <div className='xl:mr-4 outline outline-deep-ocean flex justify-center items-center rounded-full mt-2 md:mt-3 lg:mt-0 xl:mt-1 h-9 w-9  lg:h-10 lg:w-10'>
+          <div className='xl:mr-4 outline outline-deep-ocean flex justify-center items-center rounded-full mt-1 lg:-mt-1 h-9 w-9  lg:h-10 lg:w-10'>
             <label className='swap swap-rotate'>
               {/* this hidden checkbox controls the state */}
               <input
@@ -230,7 +230,7 @@ navbar end
       </div>
 
       {/* border */}
-      <div className='border-[1px] border-gray-600 w-[92%] md:w-[95%] xl:w-full mx-auto xl:my-2 border-opacity-45'></div>
+      <div className='border-[1px] border-gray-600 w-[92%] md:w-[95%] lg:w-full mx-auto xl:my-2 border-opacity-45'></div>
     </div>
   );
 };
