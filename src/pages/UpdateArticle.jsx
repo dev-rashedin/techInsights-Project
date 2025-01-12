@@ -19,6 +19,7 @@ const UpdateArticle = () => {
   const [selectedPublisher, setSelectedPublisher] = useState(null);
 
   const { id } = useParams();
+  
   const navigate = useNavigate();
 
   const axiosSecure = useAxiosSecure();
@@ -104,15 +105,19 @@ const UpdateArticle = () => {
         publisher: selectedPublisher,
       };
 
+      // console.log(formData);
+      
+
       try {
-        const res = await axiosApi.patch(`update/${id}`, formData);
-        //console.log(res)
+        const res = await axiosSecure.patch(`update/${id}`, formData);
+        console.log(res)
 
         if (res.data.modifiedCount) {
           toast.success('Update Successful');
           navigate('/my-articles');
         }
       } catch (error) {
+        console.error(error.message);
         toast.error(error.message);
       }
     } else {

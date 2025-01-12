@@ -28,6 +28,7 @@ const AddArticles = () => {
 
   const { user } = useAuth();
 
+  // getting publisher data
   const { data: publisherData = [] } = useQuery({
     queryKey: ['publishers'],
 
@@ -81,7 +82,7 @@ const AddArticles = () => {
       //console.log(res)
 
       if (res.data.insertedId) {
-        toast.success('Articel posted successfully');
+        toast.success('Article posted successfully');
         reset();
         setLoading(false);
       }
@@ -100,7 +101,7 @@ const AddArticles = () => {
   };
 
   return (
-    <div>
+    <div >
       <Helmet>
         <title>Tech Insights || Add Articles</title>
       </Helmet>
