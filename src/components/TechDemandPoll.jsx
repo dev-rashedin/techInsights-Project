@@ -12,18 +12,19 @@ const TechDemandPoll = () => {
   const [hasVoted, setHasVoted] = useState(false);
 
   // handle vote btn
-  const handleVote = (option) => {
-    if (hasVoted) return;
-
-    setVoteCounts((prevVotes) => ({
-      ...prevVotes,
-      [option]: prevVotes[option] + 1,
-    }));
-
-    setTotalVotes(totalVotes + 1);
-    setSelectedOption(option);
-    setHasVoted(true);
-  };
+   const handleVote = async (option) => {
+      const { data } = await axiosApi.post('/demanding-sector', {
+        voterEmail: user?.email,
+        votedLang: option,
+      });
+  
+      // console.log(data);
+      if (data.insertedId) {
+        toast.success('Thanks for voting');
+      } else {
+        toast.error(data);
+      }
+    };
 
   const getPercentage = (count) => ((count / totalVotes) * 100).toFixed(1);
 

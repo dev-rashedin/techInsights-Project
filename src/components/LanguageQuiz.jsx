@@ -14,6 +14,8 @@ const LanguageQuiz = () => {
     const fetchData = async () => {
       const { data } = await axiosApi.get(`/lang-quiz/${user?.email}`);
       setUserVote(data.votedLang);
+      console.log(userVote)
+      
     };
 
     if (user?.email) {
@@ -64,7 +66,7 @@ const LanguageQuiz = () => {
 
   // handle vote function
   const handleVote = async (option) => {
-    const { data } = await axiosApi.post('/lang-quiz', {
+    const { data } = await axiosApi.post('lang-quiz', {
       voterEmail: user?.email,
       votedLang: option,
     });
@@ -119,14 +121,24 @@ const LanguageQuiz = () => {
           onVote={() => handleVote('go')}
         />
       </div>
-      <p className='text-white text-center text-sm mt-4'>
-        You've Voted For:{' '}
-        <span className='font-wendy text-base text-faded-pearl ml-1'>
-          {userVote
-            ? userVote.slice(0, 1).toUpperCase() + userVote.slice(1)
-            : 'Please Vote'}
-        </span>
-      </p>
+      <div>
+        <div className=' text-base text-faded-pearl ml-1 text-center mt-4'>
+          {userVote ? (
+            <p>
+              <span className='text-white text-center text-sm '>
+                {' '}
+                You've Voted For:{' '}
+              </span>{' '}
+              <span className='font-wendy'>
+                {' '}
+                {userVote.slice(0, 1).toUpperCase() + userVote.slice(1)}
+              </span>
+            </p>
+          ) : (
+            'Please Vote'
+          )}
+        </div>
+      </div>
       <p className='mt-4 text-gray-600 dark:text-gray-300 text-center'>
         Total Votes:{' '}
         <span className='text-lg ml-1 bg-yellow-900 p-1 rounded-full drop-shadow-xl text-white'>
@@ -146,7 +158,7 @@ const PollOption = ({ option, percentage, userVote, onVote }) => (
        ? 'bg-blue-900 text-white border-2 hover:bg-blue-950'
        : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
    } hover:bg-gray-800 hover:text-white disabled:cursor-not-allowed`}
-    disabled={userVote !== null}
+    disabled={userVote}
   >
     <div className='flex justify-between items-center'>
       <span>{option}</span>
