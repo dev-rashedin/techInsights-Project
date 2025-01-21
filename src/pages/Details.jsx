@@ -69,7 +69,7 @@ const Details = () => {
       <PageTitle title='Article Details' />
 
       {/*  */}
-      <div className='pt-4 lg:pt-8 space-y-8 lg:space-y-10 mx-6 lg:mx-40'>
+      <div className=' space-y-8 lg:space-y-10 mx-6 lg:mx-40'>
         {/* post details */}
         <div className='max-w-2xl mx-auto '>
           {/* title */}
