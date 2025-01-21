@@ -21,6 +21,7 @@ import { axiosApi } from '../../api/axiosApi';
 import ArticleCard from '../../components/ArticleCard';
 import ScrollingNews from './ScrollingNews';
 import BannerCard from '../../components/BannerCard';
+import { Link } from 'react-router-dom';
 
 
 const Banner = () => {
@@ -61,8 +62,8 @@ const Banner = () => {
   return (
     <div className='flex flex-col-reverse lg:flex-row gap-8 px-4  mx-auto md:px-8'>
       {/* left side */}
-      <div className="lg:w-1/2 mt-2">
-        <ScrollingNews/>
+      <div className='lg:w-1/2 mt-2'>
+        <ScrollingNews />
       </div>
 
       {/* right side */}
@@ -89,10 +90,11 @@ const Banner = () => {
           modules={[Autoplay, Pagination, Navigation]}
           className='mySwiper'
         >
-        
           {articles.slice(0, 6).map((article) => (
             <SwiperSlide key={article._id}>
-              <BannerCard article={article}/>
+              <Link to={`/details/${article._id}`}>
+                <BannerCard article={article} />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

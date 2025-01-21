@@ -12,6 +12,7 @@ import { MdCategory, MdPermIdentity, MdPublish } from 'react-icons/md';
 import Button from '../components/Button';
 import useLoadArticles from '../hooks/useLoadArticles';
 import { CgTimer } from 'react-icons/cg';
+import { axiosApi } from '../api/axiosApi';
 
 const Details = () => {
   const { id } = useParams();
@@ -31,8 +32,7 @@ const Details = () => {
     queryKey: ['article', id],
     enabled: !!id,
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/articles/${id}`);
-
+      const { data } = await axiosApi.get(`/articles/${id}`);
       return data;
     },
     onError: (error) => {
@@ -54,6 +54,9 @@ const Details = () => {
     writers_email,
     view_count,
   } = article;
+
+  // console.log(article);
+  
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <ErrorMessage error={error} />;
@@ -119,21 +122,23 @@ const Details = () => {
           </div>
 
           <div className='text-end mr-2 mt-2'>
-            <p className='italic text-xl font-sevillana'>
-              Status:{' '}
-              <span
-                className={`font-sevillana font-semibold ml-2 ${
-                  status === 'pending'
-                    ? 'text-orange-400'
-                    : status === 'approved'
-                    ? 'text-green-600'
-                    : 'text-purple-800'
-                }`}
-              >
-                {' '}
-                {status}
-              </span>
-            </p>
+            {status ? (
+              <p className='italic text-xl font-sevillana'>
+                Status:{' '}
+                <span
+                  className={`font-sevillana font-semibold ml-2 ${
+                    status === 'pending'
+                      ? 'text-orange-400'
+                      : status === 'approved'
+                      ? 'text-green-600'
+                      : 'text-purple-800'
+                  }`}
+                >
+                  {' '}
+                  {status}
+                </span>
+              </p>
+            ) : ''}
           </div>
 
           {/* time and category */}
