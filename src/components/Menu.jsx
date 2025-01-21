@@ -6,7 +6,7 @@ const Menu = ({ filteredItems = [] }) => {
 
   return (
     <Fade cascade damping={0.3}>
-      <ul className='lg:flex lg:items-center lg:gap-3 xl:text-lg space-y-4 lg:space-y-0 font-wendy tracking-wider'>
+      <ul className='lg:flex lg:items-center lg:gap-3 xl:text-lg space-y-4 lg:space-y-0 font-wendy tracking-wider xl:mt-1'>
         {filteredItems.map(({ to, label }) => (
           <li key={to}>
             <NavLink
