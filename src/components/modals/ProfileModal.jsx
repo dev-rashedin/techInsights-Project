@@ -71,8 +71,7 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
      try {
        // updating info to db
        const res = await axiosSecure.patch(`/users/${email}`, updatedInfo);
-       if (res.data.data.modifiedCount) {
-         
+       if (res.data.data.modifiedCount) { 
          toast.success('Your profile is updated successfully');
          closeModal;
        }

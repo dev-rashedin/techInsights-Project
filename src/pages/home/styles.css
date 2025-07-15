@@ -9,7 +9,7 @@
 }
 
 .scroll-container {
-  height: 480px; 
+  height: 75vh; 
   overflow: hidden;
   position: relative;
 }
@@ -17,7 +17,7 @@
 .scroll-content {
   display: flex;
   flex-direction: column;
-  animation: verticalScroll 500s linear infinite;
+  animation: verticalScroll 700s linear infinite;
 }
 
 .swiper-slide {

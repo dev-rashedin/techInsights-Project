@@ -9,7 +9,6 @@ import {
 } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import useLoadUser from '../hooks/useLoadUser';
-import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import { createOrUpdateUser } from '../api/userApi';
 import { useState } from 'react';
@@ -40,7 +39,7 @@ const UserProfile = () => {
   if (isError) return <ErrorMessage error={error} />;
 
   // handling loading state
-  if (isLoading) return <LoadingSpinner />;
+  // if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className='w-3/4 lg:w-1/2 mx-auto space-y-4 text-deep-ocean'>
@@ -54,7 +53,7 @@ const UserProfile = () => {
       >
         <div className='p-4 lg:p-8 text-center lg:text-left'>
           <img
-            className='block rounded-full shadow-xl mx-auto -mt-16 lg:-mt-20 h-28 w-28 lg:h-36 lg:w-36'
+            className='block rounded-full shadow-xl mx-auto -mt-20 lg:-mt-20 h-28 w-28 lg:h-36 lg:w-36'
             src={photoURL}
             alt='Profile Photo'
           />
