@@ -17,20 +17,16 @@ const useAxiosSecure = () => {
       navigate('/login');
     }
   }, [shouldNavigate, navigate]);
+  
 
   useEffect(() => {
     // ✅ Attach interceptor only once
     const requestInterceptor = axiosSecure.interceptors.request.use(
       (config) => {
         const token = localStorage.getItem('access-token');
-        console.log('request stopped before interceptor', token);
 
         if (token) {
           config.headers.authorization = `Bearer ${token}`;
-          console.log(
-            'request stopped after interceptor',
-            config.headers.authorization
-          );
         }
 
         return config;

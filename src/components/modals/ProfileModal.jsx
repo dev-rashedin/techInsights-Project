@@ -18,7 +18,7 @@ import { imageUpload } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
 
 import { toast } from 'react-toastify';
-import { updateProfileInfo } from '../../api/userApi';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 /**
  *  
@@ -31,6 +31,7 @@ import { updateProfileInfo } from '../../api/userApi';
 
 const ProfileModal = ({ isOpen, closeModal, userData }) => {
   const [imageFile, setImageFile] = useState(null);
+  const axiosSecure = useAxiosSecure()
 
   const {
     updateUserProfile,
@@ -67,8 +68,18 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
           photoURL: image_url,
         };
 
-        // updating info to db
-        await updateProfileInfo(updatedInfo, email);
+     try {
+       // updating info to db
+       const res = await axiosSecure.patch(`/users/${email}`, updatedInfo);
+       if (res.data.data.modifiedCount) {
+         
+         toast.success('Your profile is updated successfully');
+         closeModal;
+       }
+     } catch (error) {
+       toast.error(error.message);
+       console.error(error);
+     }
 
         // updating info to firebase
         await updateUserProfile(name, image_url);

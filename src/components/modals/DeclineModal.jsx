@@ -41,7 +41,7 @@ const DeclineModal = ({ isOpen, closeModal, handleDeclineBtn, id }) => {
       }
     } catch (error) {
       toast.error(error.message);
-      console.l(error);
+      console.error(error);
     }
   };
 
