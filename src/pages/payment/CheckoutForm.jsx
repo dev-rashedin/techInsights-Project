@@ -104,7 +104,7 @@ const CheckoutForm = ({ price, validationTime, subscriptionType }) => {
           const userInfo = {
             email: userData.email,
             subscription: 'premium',
-            validationTime: validationTime
+            premiumToken: validationTime
           }; 
           createOrUpdateUser(userInfo)
 

@@ -20,14 +20,13 @@ const useLoadUser = () => {
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/users/${user?.email}`);
       
-      return data;
+      return data.data;
       
     },
     onError: (error) => {
       console.error('Error fetching user:', error);
     },
   });
-
 
   return [userData, refetch, isLoading, isError, error];
 };

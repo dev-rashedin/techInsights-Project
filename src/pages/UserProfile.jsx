@@ -24,6 +24,7 @@ const UserProfile = () => {
   };
 
   const [userData, refetch, isLoading, isError, error] = useLoadUser();
+  
 
   const { user } = useAuth();
 

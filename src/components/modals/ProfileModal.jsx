@@ -43,6 +43,7 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
 
   const { displayName, email, photoURL } = userData;
 
+
   const {
     register,
     handleSubmit,
