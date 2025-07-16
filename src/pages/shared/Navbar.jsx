@@ -70,7 +70,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`lg:px-4 xl:px-8 ${theme?.colors.background} pt-2 lg:pt-4 -mb-3 sticky top-0 z-10`}
+      className={`lg:px-4 xl:px-8 ${theme?.colors.background} pt-2 lg:pt-4 -mb-3 sticky top-0 z-10 h-24`}
     >
       <div className='flex justify-between items-center w-full lg:px-2 py-2'>
         <div className='flex-1 lg:-mt-2'>
@@ -129,9 +129,9 @@ const Navbar = () => {
 
 navbar end
 */}
-        <div className=' flex gap-3 mr-4 xl:-mr-4 xl:mt-2 item-center'>
+        <div className=' flex gap-3 mr-4 xl:-mr-4 xl:mt-2 item-center rounded-full h-12 px-2 py-1'>
           {user ? (
-            <div className='flex gap-2 items-center mt-1 lg:-mt-[3px]'>
+            <div className='flex gap-2 items-center'>
               <div className='dropdown dropdown-end'>
                 <div
                   tabIndex={0}
@@ -189,7 +189,7 @@ navbar end
               </div>
             </div>
           ) : (
-            <div className='flex gap-2 items-center lg:-mt-2'>
+            <div className='flex gap-2 items-center '>
               <Link to='/login'>
                 <Button type='primary' label='Sign In'></Button>
               </Link>

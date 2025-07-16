@@ -42,8 +42,8 @@ const Banner = () => {
   } = useQuery({
     queryKey: ['articles'],
     queryFn: async () => {
-      const res = await axiosApi.get('/articles');
-      return res.data;
+      const res = await axiosApi.get('/recent-articles-banner');
+      return res.data.data;
     },
     onError: (error) => {
       console.error('Error fetching articles:', error);
@@ -68,9 +68,7 @@ const Banner = () => {
 
       {/* right side */}
       <div
-        className='lg:w-1/2 md:ml-2 lg:ml-0'
-        data-aos='zoom-in-cube'
-        data-aos-duration='1000'
+        className='lg:w-1/2 md:ml-2 lg:ml-0 border border-gray-900'
       >
         <Swiper
           spaceBetween={30}
@@ -90,7 +88,7 @@ const Banner = () => {
           modules={[Autoplay, Pagination, Navigation]}
           className='mySwiper'
         >
-          {articles.slice(0, 6).map((article) => (
+          {articles.map((article) => (
             <SwiperSlide key={article._id}>
               <Link to={`/details/${article._id}`}>
                 <BannerCard article={article} />

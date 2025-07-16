@@ -6,27 +6,20 @@ import useLoadUser from '../hooks/useLoadUser';
 const BannerCard = ({ article, refetch }) => {
   // destructuring article
   const {
-    _id,
     title,
     description,
     image_url,
     tags,
     publisher,
-    isPremium,
-    status,
-    posted_by,
     posted_time,
-    writers_email,
   } = article;
 
   return (
-    <div
-      data-aos='fade-left'
-      data-aos-duration='1000'
-      className={`max-w-2xl px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:transition-all hover:border-green-lantern hover:duration-300 rounded-ss-3xl rounded-ee-3xl group h-[500px]`}
+    <div    
+      className={`max-w-3xl px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:transition-all hover:border-green-lantern hover:duration-300 rounded-ss-3xl rounded-ee-3xl group h-[75vh] overflow-hidden`}
     >
       {/* time and publisher*/}
-      <div className='flex items-center justify-between'>
+      <div className=' flex items-center justify-between'>
         <p className='font-wendy text-sm'>{posted_time}</p>
         {/* publisher */}
         <p
@@ -51,15 +44,15 @@ const BannerCard = ({ article, refetch }) => {
         </p>
       </div>
 
-      <div className='mt-4'>
+      <div className='mt-4 xl:mt-8 h-[45%]'>
         {/* image */}
         <img
-          className='rounded-xl mx-auto h-[200px] lg:h-60 mb-6'
+          className='rounded-xl mx-auto h-full w-full lg:w-[90%]  mb-6'
           src={image_url ? image_url : placeholderImage}
           alt=''
         />
         {/* title */}
-        <p className='text-lg font-bold '>{title}</p>
+        <p className='text-lg lg:text-xl font-bold lg:mt-6 xl:mt-12'>{title}</p>
         <p className='text-sm flex italic mt-2 pb-1 justify-between  '>
           <span className='flex gap-4'>
             {tags.map((tag) => (
@@ -75,8 +68,8 @@ const BannerCard = ({ article, refetch }) => {
           )}
         </p>
 
-        <p className='mt-2 text-sm text-justify'>
-          {description.slice(0, 240)}....
+        <p className='mt-2 text-sm text-justify max-h-[150px] lg:max-h-[180px] pb-4 overflow-hidden'>
+          {description.slice(0, 700)}....
         </p>
       </div>
     </div>

@@ -3,10 +3,7 @@ import Marquee from 'react-fast-marquee';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 // ..
-AOS.init({
-  delay: 2400,
-  duration: 3000
-});
+
 
 const MottoMarquee = () => {
   const mottos = [
@@ -23,8 +20,7 @@ const MottoMarquee = () => {
   ];
 
   return (
-    <div
-      data-aos='fade-left'>
+    <div>
       <Marquee gradient={false} speed={50}>
         {mottos.map((motto, index) => (
           <span

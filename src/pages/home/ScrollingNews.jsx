@@ -17,7 +17,7 @@ export default function ScrollingNews() {
     queryKey: ['recent-articles'],
     queryFn: async () => {
       const res = await axiosApi.get('/recent-articles');
-      return res.data;
+      return res.data.data;
     },
     onError: (error) => {
       console.error('Error fetching articles:', error);
