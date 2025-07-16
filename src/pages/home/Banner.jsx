@@ -68,7 +68,7 @@ const Banner = () => {
 
       {/* right side */}
       <div
-        className='lg:w-1/2 md:ml-2 lg:ml-0 border border-gray-900'
+        className='lg:w-1/2 md:ml-2 lg:ml-0 '
       >
         <Swiper
           spaceBetween={30}

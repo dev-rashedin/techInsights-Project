@@ -12,7 +12,6 @@ import { useLoaderData, useOutletContext } from 'react-router-dom';
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
 
-  const AllArticles = useLoaderData();
 
   const { isActive, handleToggle } = useOutletContext();
 
@@ -20,7 +19,7 @@ const AllUsers = () => {
     queryKey: ['users'],
     queryFn: async () => {
       const res = await axiosSecure.get('/users');
-      return res.data;
+      return res.data.data;
     },
     refetchInterval: 5000,
     refetchIntervalInBackground: true,

@@ -9,7 +9,6 @@ import { axiosApi } from '../../api/axiosApi';
 export default function ScrollingNews() {
   const {
     data: articles = [],
-    refetch,
     isLoading,
     isError,
     error,

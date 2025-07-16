@@ -24,6 +24,7 @@
     "axios": "^1.7.7",
     "date-fns": "^3.6.0",
     "firebase": "^10.13.1",
+    "http-status-toolkit": "^2.0.0",
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.0",
     "match-sorter": "^6.3.4",

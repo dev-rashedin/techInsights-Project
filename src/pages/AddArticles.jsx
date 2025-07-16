@@ -9,6 +9,7 @@ import { imageUpload } from '../api/utils';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import useAuth from '../hooks/useAuth';
+import { StatusCodes } from 'http-status-toolkit';
 
 const AddArticles = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -74,14 +75,13 @@ const AddArticles = () => {
       status: 'pending',
     };
 
-    //console.log(articleData)
 
     try {
       setLoading(true);
       const res = await axiosSecure.post('/articles', articleData);
-      //console.log(res)
+      console.log(res)
 
-      if (res.data.insertedId) {
+      if (res.status === StatusCodes.CREATED) {
         toast.success('Article posted successfully');
         reset();
         setLoading(false);
@@ -101,14 +101,14 @@ const AddArticles = () => {
   };
 
   return (
-    <div >
+    <div className='min-h-[76.2vh]'>
       <Helmet>
         <title>Tech Insights || Add Articles</title>
       </Helmet>
       <PageTitle title='Add Articles' />
       {/* form */}
-      <div className='border-2 border-dotted border-faded-pearl p-8 rounded-xl mx-8 lg:w-1/2 lg:mx-auto shadow-2xl -mt-4'>
-        <form onSubmit={handleSubmit(handlePostArticle)} className=' space-y-2'>
+      <div className='border-2 border-dotted border-faded-pearl p-8 rounded-xl mx-8 lg:w-1/2 lg:mx-auto shadow-2xl '>
+        <form onSubmit={handleSubmit(handlePostArticle)} className=' space-y-2 xl:space-y-3'>
           {/* Title */}
           <div className='form-control'>
             <input
