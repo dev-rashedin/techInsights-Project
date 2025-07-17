@@ -75,12 +75,14 @@ const AllArticles = () => {
 
   // handle prev and next btn
   const handlePrevBtn = () => {
+    alert('Previous page clicked');
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
   };
 
   const handleNextBtn = () => {
+    alert('Next page clicked');
     if (currentPage < pages.length - 1) {
       setCurrentPage(currentPage + 1);
     }
@@ -92,41 +94,22 @@ const AllArticles = () => {
   if (isError) return <ErrorMessage error={error} />;
 
   return (
-    <div>
+    <div className='min-h-[80vh] flex flex-col justify-center'>
       <Helmet>
         <title>Tech Insights || Admin - All Articles</title>
       </Helmet>
 
       {/* select, search, sort, reset */}
-      <div className='my-8 flex flex-col md:flex-row justify-center gap-4 w-60 md:w-full mx-auto'>
-        {/* select */}
-        <select
-          onChange={(e) => {
-            setFilter(e.target.value);
-            setCurrentPage(0);
-          }}
-          value={filter}
-          name='publisher'
-          id='publisher'
-          className='border text-sm lg:text-base px-2 py-2 md:py-0 rounded-lg font-medium'
-        >
-          <option value=''>Filter By Publisher</option>
-          <option value='AI Revolution'>AI Revolution</option>
-          <option value='Cyber Shield'>Cyber Shield</option>
-          <option value='Tech Tomorrow'>Tech Tomorrow</option>
-          <option value='Data Dive'>Data Dive</option>
-          <option value='DevOps Digest'>DevOps Digest</option>
-        </select>
-
+      <div className='min-w-[350px] flex flex-col md:flex-row justify-center gap-4 w-60 md:w-full mx-auto mt-4 mb-8 xl:mb-12 '>
         {/* search */}
         <form onSubmit={handleSubmit}>
-          <div className='flex overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-green-lantern focus-within:ring-green-lantern'>
+          <div className='w-full flex overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-green-lantern focus-within:ring-green-lantern'>
             <input
               onChange={(e) => {
                 setSearchText(e.target.value);
               }}
               value={searchText}
-              className=' placeholder-gray-500 bg-white outline-none focus:placeholder-transparent text-sm lg:text-base p-2 rounded-md'
+              className='w-full placeholder-gray-500 bg-white outline-none focus:placeholder-transparent text-sm lg:text-base p-2 rounded-md'
               type='text'
               name='search'
               placeholder='Enter Post Title'
@@ -142,8 +125,29 @@ const AllArticles = () => {
           </div>
         </form>
 
-        {/* sort */}
-        <div>
+        {/* filter and sort and reset */}
+        <div className='flex gap-2 md:gap-4'>
+          {/* select */}
+          <select
+            onChange={(e) => {
+              setFilter(e.target.value);
+              setCurrentPage(0);
+            }}
+            value={filter}
+            name='publisher'
+            id='publisher'
+            className='border text-sm lg:text-base px-2 py-2 md:py-0 rounded-lg font-medium'
+          >
+            <option value=''>Filter By Publisher</option>
+            <option value='AI Revolution'>AI Revolution</option>
+            <option value='Cyber Shield'>Cyber Shield</option>
+            <option value='Tech Tomorrow'>Tech Tomorrow</option>
+            <option value='Data Dive'>Data Dive</option>
+            <option value='DevOps Digest'>DevOps Digest</option>
+          </select>
+
+          {/* sort */}
+
           <select
             onChange={(e) => {
               setSort(e.target.value);
@@ -158,17 +162,18 @@ const AllArticles = () => {
             <option value='dsc'>Descending Order</option>
             <option value='asc'>Ascending Order</option>
           </select>
+
+          {/* reset btn */}
+          <button
+            onClick={handleResetBtn}
+            className='bg-white rounded-md text-sm lg:text-base px-2 py-1  border-2 border-gray-400'
+          >
+            Reset
+          </button>
         </div>
-        {/* reset btn */}
-        <button
-          onClick={handleResetBtn}
-          className='bg-white rounded-md text-sm lg:text-base px-2 py-1  border-2 border-gray-400'
-        >
-          Reset
-        </button>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-8 md:mx-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 mx-8 md:mx-4 xl:mx-28'>
         {articles.map((article) => (
           <ArticleCard key={article._id} article={article} refetch={refetch} />
         ))}

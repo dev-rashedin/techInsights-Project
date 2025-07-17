@@ -4,19 +4,23 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { imageUpload } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
-import { axiosApi } from '../../api/axiosApi';
 import { postPublisherInfo } from '../../api/userApi';
 import { useOutletContext } from 'react-router-dom';
+import { StatusCodes } from 'http-status-toolkit';
+import { toast } from 'react-toastify';
+import useAxiosSecure from './../../hooks/useAxiosSecure';
 
 const AddPublisher = () => {
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const axiosSecure = useAxiosSecure();
 
   const { isActive, handleToggle } = useOutletContext();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -30,7 +34,14 @@ const AddPublisher = () => {
 
     try {
       setLoading(true);
-      postPublisherInfo(publisherData);
+      const res = await axiosSecure.post('/publishers', publisherData);
+      console.log(res);
+
+      if (res.status === StatusCodes.CREATED) {
+        toast.success('Publisher created successfully');
+        reset();
+        setLoading(false);
+      }
     } catch (err) {
       //console.log('Error:', err);
       toast.error(err.message);

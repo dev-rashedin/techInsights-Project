@@ -36,7 +36,7 @@ const ArticleCard = ({ article, refetch }) => {
 
   return (
     <div
-      className={`max-w-2xl mx-12 md:mx-0 px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:transition-all hover:border-green-lantern hover:duration-300 rounded-ss-3xl rounded-ee-3xl group ${
+      className={`max-w-xl px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:transition-all hover:border-green-lantern hover:duration-300 rounded-ss-3xl rounded-ee-3xl group ${
         article.isPremium === 'yes'
           ? 'bg-gradient-to-br from-green-200 to-blue-400'
           : ''

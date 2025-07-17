@@ -101,14 +101,14 @@ const AddArticles = () => {
   };
 
   return (
-    <div className='min-h-[76.2vh]'>
+    <div className='h-[80vh]  flex flex-col justify-center items-center'>
       <Helmet>
         <title>Tech Insights || Add Articles</title>
       </Helmet>
       <PageTitle title='Add Articles' />
       {/* form */}
-      <div className='border-2 border-dotted border-faded-pearl p-8 rounded-xl mx-8 lg:w-1/2 lg:mx-auto shadow-2xl '>
-        <form onSubmit={handleSubmit(handlePostArticle)} className=' space-y-2 xl:space-y-3'>
+      <div className='border-2 border-dotted border-faded-pearl p-4 md:p-8 rounded-xl mx-8 lg:w-1/2 lg:mx-auto shadow-2xl '>
+        <form onSubmit={handleSubmit(handlePostArticle)} className='w-80 md:w-full space-y-2 xl:space-y-3'>
           {/* Title */}
           <div className='form-control'>
             <input
@@ -145,9 +145,9 @@ const AddArticles = () => {
 
           {/* Publisher & tags Dropdown */}
 
-          <div className='flex gap-4 pt-[1px]'>
+          <div className='flex flex-col md:flex-row gap-4 pt-[1px]'>
             {/* Tags Multi-Select */}
-            <div className='form-control w-2/3'>
+            <div className='form-control md:w-2/3'>
               <Select
                 options={tagsOptions}
                 isMulti
@@ -200,7 +200,7 @@ const AddArticles = () => {
                 required: 'Description is required',
               })}
               placeholder='Description'
-              className='textarea textarea-bordered'
+              className='textarea textarea-bordered h-32 overflow-auto'
             />
             {errors.description && (
               <p className='text-red-500 mt-2'>{errors.description.message}</p>

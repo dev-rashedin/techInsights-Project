@@ -17,10 +17,10 @@ const Root = () => {
       className={`${theme} ${theme?.colors?.background} ${theme?.colors?.textPrimary}`}
     >
       <div
-        className={`max-w-[1600px] mx-auto lg:px-4 font-raleway  min-h-[83vh]  pb-8`}
+        className={`max-w-[1600px] mx-auto lg:px-4 font-raleway min-h-[89.5vh] `}
       >
-        {noHeaderFooter || <Navbar />}
-        <Outlet />
+        {noHeaderFooter || <Navbar />}     
+          <Outlet />
       </div>
       {noHeaderFooter || <Footer />}
     </div>
