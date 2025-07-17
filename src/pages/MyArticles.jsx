@@ -8,7 +8,6 @@ import ErrorMessage from '../components/ErrorMessage';
 import { Link } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import { axiosApi } from '../api/axiosApi';
 import Swal from 'sweetalert2';
 import {FaEye } from 'react-icons/fa';
 import { useState } from 'react';
@@ -76,7 +75,7 @@ setIsOpen(!isOpen)
   };
 
   return (
-    <div>
+    <div className='my-4 xl:my-8'>
       <Helmet>
         <title>Tech Insights || My Articles</title>
       </Helmet>

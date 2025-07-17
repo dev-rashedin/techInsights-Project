@@ -31,14 +31,14 @@ const Subscription = () => {
   
   
   return (
-    <div>
+    <div className='max-w-7xl mx-auto my-4 xl:my-8'>
       <Helmet>
         <title>Tech Insights || Subscription</title>
       </Helmet>
 
-        <PageTitle title='User Subscription' />
- 
-      <div className='border-2 border-green-lantern py-2 -mt-8 mb-8 w-3/4 lg:w-1/2 mx-auto text-center space-y-2 rounded-xl border-dotted'>
+      <PageTitle title='User Subscription' />
+
+      <div className='border-2 border-green-lantern py-2 -mt-4 mb-12 w-3/4 lg:w-1/2 mx-auto text-center space-y-2 rounded-xl border-dotted'>
         {userData.subscription === 'premium' && (
           <p className='text-lg font-semibold '>
             You already are a premium subscriber.
@@ -168,9 +168,10 @@ const Subscription = () => {
                     d='M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z'
                     clipRule='evenodd'
                   ></path>
-                </svg>{' '}
-                Basic Support
+                </svg>
+                <b>Basic Support</b>
               </p>
+
               <div className='flex justify-center mt-8 '>
                 <Link
                   to='/payment'
@@ -287,7 +288,7 @@ const Subscription = () => {
                     clipRule='evenodd'
                   ></path>
                 </svg>
-                <b>Early Beta Features&nbsp;</b>
+                <b>10 Users</b>
               </p>
               <p className='flex items-center text-sm'>
                 <svg
@@ -303,7 +304,7 @@ const Subscription = () => {
                     clipRule='evenodd'
                   ></path>
                 </svg>{' '}
-                Premium Support
+                <b> Premium Support</b>
               </p>
               {/* btn */}
               <div className='flex justify-center mt-8'>

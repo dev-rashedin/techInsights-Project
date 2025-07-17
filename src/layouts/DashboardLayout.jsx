@@ -17,7 +17,7 @@ const DashboardLayout = () => {
 
       {/* Outlet --> Dynamic content */}
       <div className='flex-1 lg:ml-64'>
-        <div className='p-5'>
+        <div className='p-5 max-w-7xl mx-auto min-h-screen flex justify-center items-center'>
           <Outlet context={{isActive, handleToggle}} />
         </div>
       </div>
