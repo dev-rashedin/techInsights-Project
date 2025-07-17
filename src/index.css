@@ -4,3 +4,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.article-card-btn:hover .underline-animate {
+  width: 100%;
+}
+

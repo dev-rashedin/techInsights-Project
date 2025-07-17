@@ -6,7 +6,6 @@ import ErrorMessage from '../components/ErrorMessage';
 import ArticleCard from '../components/ArticleCard';
 import { useEffect, useState } from 'react';
 import { axiosApi } from '../api/axiosApi';
-import Button from '../components/Button';
 
 const AllArticles = () => {
   const [articleCount, setArticleCount] = useState(null);
@@ -37,7 +36,7 @@ const AllArticles = () => {
   const fetchArticleCount = async () => {
     try {
       const { data } = await axiosApi.get(
-        `/articleCount?filter=${filter}&search=${search}`
+        `/article-count?filter=${filter}&search=${search}`
       );
       setArticleCount(data);
     } catch (error) {
@@ -75,14 +74,12 @@ const AllArticles = () => {
 
   // handle prev and next btn
   const handlePrevBtn = () => {
-    alert('Previous page clicked');
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
   };
 
   const handleNextBtn = () => {
-    alert('Next page clicked');
     if (currentPage < pages.length - 1) {
       setCurrentPage(currentPage + 1);
     }
@@ -100,7 +97,7 @@ const AllArticles = () => {
       </Helmet>
 
       {/* select, search, sort, reset */}
-      <div className='min-w-[350px] flex flex-col md:flex-row justify-center gap-4 w-60 md:w-full mx-auto mt-4 mb-8 xl:mb-12 '>
+      <div className='min-w-[350px] flex flex-col md:flex-row justify-center gap-4 w-60 md:w-full mx-auto my-8 xl:my-10 '>
         {/* search */}
         <form onSubmit={handleSubmit}>
           <div className='w-full flex overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-green-lantern focus-within:ring-green-lantern'>
@@ -180,7 +177,7 @@ const AllArticles = () => {
       </div>
 
       {/* pagination */}
-      <div className='flex gap-2 justify-center mt-8'>
+      <div className='flex gap-2 justify-center my-8 xl:my-12'>
         {/* prev btn */}
 
         <button

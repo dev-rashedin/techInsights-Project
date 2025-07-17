@@ -36,7 +36,7 @@ const ArticleCard = ({ article, refetch }) => {
 
   return (
     <div
-      className={`max-w-xl px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:transition-all hover:border-green-lantern hover:duration-300 rounded-ss-3xl rounded-ee-3xl group ${
+      className={`max-w-xl px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:border-solid  hover:border-green-lantern  rounded-ss-3xl rounded-ee-3xl group ${
         article.isPremium === 'yes'
           ? 'bg-gradient-to-br from-green-200 to-blue-400'
           : ''
@@ -76,9 +76,9 @@ const ArticleCard = ({ article, refetch }) => {
           alt=''
         />
         {/* title */}
-        <p className=' font-bold '>{title}</p>
+        <p className='text-lg font-bold  h-14'>{title}</p>
         <p className='text-sm flex italic mt-2 pb-2 justify-between font-light'>
-          <span className='flex gap-4'>
+          <span className='flex gap-4 font-semibold'>
             {tags.map((tag) => (
               <span key={tag}># {tag}</span>
             ))}
@@ -90,7 +90,9 @@ const ArticleCard = ({ article, refetch }) => {
           )}
         </p>
 
-        <p className='mt-1 text-sm'>{description.slice(0, 150)}....</p>
+        <p className='mt-2 text-sm  h-16 overflow-hidden'>
+          {description.slice(0, 135)}....
+        </p>
       </div>
 
       {/* read more */}
@@ -99,9 +101,10 @@ const ArticleCard = ({ article, refetch }) => {
           <button
             onClick={incrementViewCount}
             disabled={isPremium === 'yes' && userData.subscription === 'usual'}
-            className='text-deep-ocean font-semibold hover:underline hover:transition hover:duration-300 hover:font-bold font-sevillana text-xl disabled:cursor-not-allowed disabled:text-gray-500'
+            className='text-deep-ocean font-semibold  font-sevillana text-xl disabled:cursor-not-allowed disabled:text-gray-500 mt-4 relative group article-card-btn'
           >
             Read more
+            <span className='absolute bottom-0 left-0 h-0.5 w-0 bg-green-lantern transition-all duration-300 ease-in-out underline-animate group-disabled:hidden'></span>
           </button>
         </Link>
       </div>
