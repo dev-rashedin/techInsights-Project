@@ -63,13 +63,17 @@ const Statistics = () => {
         <title>Tech Insights || Admin - Statistics</title>
       </Helmet>
 
-      <h1 className='text-3xl font-wendy ml-4 mt-4 mb-12 text-green-lantern '>
+      <h1 className='text-3xl xl:text-4xl font-wendy ml-4 mt-4 mb-12 text-green-lantern '>
         <FaHandsClapping
           color='green'
           size={36}
           className='-mt-1 wave-animation'
         />
-        <span> Hi! Welcome Back</span> <span className=' text-deep-ocean'> {user?.displayName}</span>
+        <span> Hi! Welcome Back</span>{' '}
+        <span className=' text-deep-ocean text-4xl xl:text-5xl ml-2'>
+          {' '}
+          {user?.displayName}
+        </span>
       </h1>
 
       <div className='mt-4'>
@@ -154,9 +158,7 @@ const Statistics = () => {
             <p className='font-semibold pt-2 xl:pt-20 text-center text-lg'>
               User Subscription
             </p>
-            <UserPieChart
-              subscriptionCount={subscriptionCount}
-            />
+            <UserPieChart subscriptionCount={subscriptionCount} />
           </div>
         </div>
         {/*  */}

@@ -29,7 +29,7 @@ const AdminArticleCard = ({ article, refetch }) => {
 
   // close modal
 
-  const closeModal = () => {
+  const handleDeclineModal = () => {
     setIsOpen(!isOpen);
   };
 
@@ -51,9 +51,14 @@ const AdminArticleCard = ({ article, refetch }) => {
   };
 
   const handleDeclineBtn = async (id) => {
+    console.log('decline button clicked');
+    
     const updatedInfo = { status: 'declined' };
     try {
       const { data } = await axiosSecure.put(`/articles/${id}`, updatedInfo);
+
+      console.log(data)
+      
 
       if (data.modifiedCount) {
         toast.info('Post Declined');
@@ -156,7 +161,7 @@ const AdminArticleCard = ({ article, refetch }) => {
           </p>
         </div>
 
-        {/* <p className='mt-2'>{description.slice(0, 175)}....</p> */}
+
         <div className='mt-4 flex justify-between'>
           <p className='mb-1'>
             <em>Author: </em>
@@ -185,8 +190,7 @@ const AdminArticleCard = ({ article, refetch }) => {
             {status === 'approved' ? 'Already Approved' : 'Approve Post'}
           </button>
           <button
-            onClick={closeModal}
-            // onClick={() => handleDeclineBtn(_id)}
+            onClick={handleDeclineModal}
             disabled={status === 'declined'}
             className='font-semibold  cursor-pointer border-deep-ocean px-2 py-1 w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern disabled:cursor-not-allowed disabled:bg-gray-500 h-8'
           >
@@ -194,7 +198,7 @@ const AdminArticleCard = ({ article, refetch }) => {
           </button>
           <DeclineModal
             isOpen={isOpen}
-            closeModal={closeModal}
+            closeModal={handleDeclineModal}
             handleDeclineBtn={handleDeclineBtn}
             id={_id}
           />
