@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import placeholderImage from '../assets/placeholder.png';
 import { axiosApi } from '../api/axiosApi';
 import useLoadUser from '../hooks/useLoadUser';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Marquee from 'react-fast-marquee';
 
 const BannerCard = ({ article, refetch }) => {
   // destructuring article
@@ -15,7 +17,7 @@ const BannerCard = ({ article, refetch }) => {
   } = article;
 
   return (
-    <div    
+    <div
       className={`max-w-3xl px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:transition-all hover:border-green-lantern hover:duration-300 rounded-ss-3xl rounded-ee-3xl group h-[75vh] overflow-hidden`}
     >
       {/* time and publisher*/}
@@ -53,6 +55,7 @@ const BannerCard = ({ article, refetch }) => {
         />
         {/* title */}
         <p className='text-lg lg:text-xl font-bold lg:mt-6 xl:mt-12'>{title}</p>
+        {/* tags */}
         <p className='text-sm flex italic mt-2 pb-1 justify-between  '>
           <span className='flex gap-4'>
             {tags.map((tag) => (
@@ -68,8 +71,8 @@ const BannerCard = ({ article, refetch }) => {
           )}
         </p>
 
-        <p className='mt-2 text-sm text-justify max-h-[150px] lg:max-h-[180px] pb-4 overflow-hidden'>
-          {description.slice(0, 700)}....
+        <p className='mt-2 text-sm text-justify max-h-[170px] pb-4 overflow-hidden'>
+          {description.slice(0, 650)}.... <span className='ml-4 xl:ml-8 italic font-bold text-xs tracking-wider'>click to read more</span>
         </p>
       </div>
     </div>

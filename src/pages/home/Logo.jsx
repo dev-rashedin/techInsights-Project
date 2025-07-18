@@ -20,7 +20,7 @@ const Logo = () => {
           />
         </Link>
 
-        <div className='w-1/2 md:w-[70%] xl:w-[78%] mr-5 md:mr-8'>
+        <div className='w-1/2 md:w-[65%] xl:w-[78%] mr-5 md:mr-8'>
           <MottoMarquee />
         </div>
       </div>

@@ -31,8 +31,6 @@ export default function ScrollingNews() {
 
   return (
     <div
-      data-aos='fade-up'
-      data-aos-duration='300'
       className='scroll-container'
     >
       <div className='scroll-content'>
@@ -47,7 +45,7 @@ export default function ScrollingNews() {
           {articles.map((article) => (
             <SwiperSlide key={article._id} className='mb-8'>
               <h4 className=' font-semibold mt-4  '>{article.title}</h4>
-              <p className='text-sm mt-2 tracking-wider text-justify  '>
+              <p className='text-sm mt-2 tracking-wider text-justify '>
                 {article?.description}
               </p>
             </SwiperSlide>

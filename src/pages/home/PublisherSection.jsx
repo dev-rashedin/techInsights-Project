@@ -33,7 +33,7 @@ const PublisherSection = () => {
     <div>
       <PageTitle title='All Publishers' />
 
-      <div className='mt-6 mx-6 lg:mx-8'>
+      <div className='my-6 mx-6 lg:mx-8'>
         <Marquee direction='right' speed={30}>
           {publisherData?.map((publisher) => (
             <div
