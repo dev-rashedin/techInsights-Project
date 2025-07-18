@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { StatusCodes } from 'http-status-toolkit';
 
 const DeclineModal = ({ isOpen, closeModal, handleDeclineBtn, id }) => {
   const axiosSecure = useAxiosSecure();
@@ -35,7 +36,7 @@ const DeclineModal = ({ isOpen, closeModal, handleDeclineBtn, id }) => {
       const res = await axiosSecure.post(`/message/${id}`, declinedMessage);
 console.log(res)
 
-      if (res.data.insertedId) {
+      if (res.status === StatusCodes.CREATED) {
         toast.success('Your message is sent');
         handleDeclineBtn(id);
         closeModal;
