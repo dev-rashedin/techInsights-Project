@@ -18,9 +18,10 @@
   
   display: flex;
   flex-direction: column;
-  animation: verticalScroll 100s linear infinite;
+  animation: verticalScroll 300s linear infinite;
 }
 
 .swiper-slide {
   height: auto;
 }
+

@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper/modules';
 import 'swiper/css';
 import './styles.css';
 import { useQuery } from '@tanstack/react-query';
@@ -30,19 +31,19 @@ export default function ScrollingNews() {
   if (isError) return <ErrorMessage error={error} />;
 
   return (
-    <div
-      className='scroll-container'
-    >
+          <div className='scroll-container'>
       <div className='scroll-content'>
         <Swiper
           direction='vertical'
           slidesPerView='auto'
-          loop={true} // enable looping
-          freeMode={true} // allows smooth free scroll
-          freeModeMomentum={false}
+          loop={true}
+          spaceBetween={0}
+          freeMode={true}
+          mousewheel={true}
+          modules={[ Mousewheel]}
           className='mySwiper'
         >
-          {articles.map((article) => (
+          {[...articles, ...articles, ...articles].map((article) => (
             <SwiperSlide key={article._id} className='mb-8'>
               <h4 className=' font-semibold mt-4  '>{article.title}</h4>
               <p className='text-sm mt-2 tracking-wider text-justify '>
