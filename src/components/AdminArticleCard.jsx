@@ -113,7 +113,7 @@ const AdminArticleCard = ({ article, refetch }) => {
 
   return (
     <div className='max-w-2xl px-8 py-4 rounded-lg shadow-xl border-2 border-deep-ocean border-dotted hover:transition-all hover:border-green-lantern hover:duration-300 rounded-ee-[15%] rounded-es-[15%] group md:mx-20 lg:mx-0'>
-      <div className='mt-8 h-[270px]'>
+      <div className='mt-8 md:h-[280px]'>
         {/* image */}
         <img
           className='rounded-xl mx-auto -translate-y-28 h-48 mb-4 lg:mt-2 group-hover:scale-105 transition duration-800 ease-in w-11/12'
@@ -161,40 +161,39 @@ const AdminArticleCard = ({ article, refetch }) => {
           </p>
         </div>
 
-
         <div className='mt-4 flex justify-between'>
           <p className='mb-1'>
-            <em>Author: </em>
-            <span>{posted_by}</span>
+            Author:
+            <span className='font-semibold ml-1'>{posted_by}</span>
           </p>
           <p className='mb-1'>
-            <em>Status: </em>
-            <span>{status}</span>
+            Status:
+            <span className='font-semibold ml-1'>{status}</span>
           </p>
         </div>
         <p>
-          <em>Email: </em>
-          <span>{writers_email}</span>
+          Email:
+          <span className='font-semibold ml-1'>{writers_email}</span>
         </p>
       </div>
 
       {/* button */}
-      <div className='mt-8 lg:mt-0'>
+      <div className='mt-8 lg:mt-0 flex flex-col gap-4 md:gap-0 justify-between md:justify-center items-center md:items-stretch'>
         {/* approve and decline btn */}
-        <div className='flex justify-between'>
+        <div className='flex flex-col md:flex-row justify-between space-y-2 md:space-y-0'>
           <button
             onClick={() => handleApproveBtn(_id)}
             disabled={status === 'approved'}
-            className='font-semibold  cursor-pointer border-2 border-deep-ocean px-2 py-1 w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern mb-2 disabled:cursor-not-allowed disabled:bg-gray-500'
+            className='font-semibold cursor-pointer border-2 border-deep-ocean px-2 py-1 w-60 md:w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern mb-2 disabled:cursor-not-allowed disabled:bg-gray-500'
           >
             {status === 'approved' ? 'Already Approved' : 'Approve Post'}
           </button>
           <button
             onClick={handleDeclineModal}
             disabled={status === 'declined'}
-            className='font-semibold  cursor-pointer border-deep-ocean px-2 py-1 w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern disabled:cursor-not-allowed disabled:bg-gray-500 h-8'
+            className='font-semibold cursor-pointer border-deep-ocean px-2 py-1 w-60 md:w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern disabled:cursor-not-allowed disabled:bg-gray-500 h-8'
           >
-            {status === 'declined' ? 'Cannot Decline' : 'Decline a Post'}
+            {status === 'declined' ? 'Cannot Decline' : 'Decline Post'}
           </button>
           <DeclineModal
             isOpen={isOpen}
@@ -204,18 +203,18 @@ const AdminArticleCard = ({ article, refetch }) => {
           />
         </div>
         {/* delete and make premium btn */}
-        <div className='flex justify-between my-2'>
+        <div className='flex flex-col md:flex-row space-y-2 md:space-y-0 md:justify-between my-2'>
           <button
             onClick={() => handleDeleteBtn(_id)}
             className='
-          font-semibold  cursor-pointer border-2 border-deep-ocean px-2 py-1 md:w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern mb-2 w-40'
+          font-semibold  cursor-pointer border-2 border-deep-ocean px-2 py-1 w-60 md:w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern mb-2'
           >
             Delete Post
           </button>
           <button
             onClick={() => handleMakePremiumBtn(_id)}
             disabled={isPremium === 'yes'}
-            className='font-semibold  cursor-pointer border-2 border-deep-ocean px-2 py-1 h-8 md:mt-0 md:w-40 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern w-40 disabled:cursor-not-allowed disabled:bg-gray-500'
+            className='font-semibold  cursor-pointer border-2 border-deep-ocean px-2 py-1 h-8 md:mt-0 w-60 rounded-lg hover:border-opacity-100 hover:rounded-full glass outline outline-green-lantern md:w-40 disabled:cursor-not-allowed disabled:bg-gray-500'
           >
             {isPremium === 'yes' ? 'Already Premium' : ' Make Premium'}
           </button>

@@ -30,9 +30,10 @@ const DeclineModal = ({ isOpen, closeModal, handleDeclineBtn, id }) => {
         message: data.message,
       };
 
-      // console.log(declinedMessage)
+      console.log(declinedMessage)
 
       const res = await axiosSecure.post(`/message/${id}`, declinedMessage);
+console.log(res)
 
       if (res.data.insertedId) {
         toast.success('Your message is sent');
