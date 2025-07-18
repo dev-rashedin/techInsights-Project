@@ -31,10 +31,19 @@ export default function ScrollingNews() {
 
   return (
     <div
+      data-aos='fade-up'
+      data-aos-duration='300'
       className='scroll-container'
     >
       <div className='scroll-content'>
-        <Swiper direction='vertical' slidesPerView='auto' className='mySwiper'>
+        <Swiper
+          direction='vertical'
+          slidesPerView='auto'
+          loop={true} // enable looping
+          freeMode={true} // allows smooth free scroll
+          freeModeMomentum={false}
+          className='mySwiper'
+        >
           {articles.map((article) => (
             <SwiperSlide key={article._id} className='mb-8'>
               <h4 className=' font-semibold mt-4  '>{article.title}</h4>

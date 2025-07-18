@@ -15,9 +15,10 @@
 }
 
 .scroll-content {
+  
   display: flex;
   flex-direction: column;
-  animation: verticalScroll 300s linear infinite;
+  animation: verticalScroll 100s linear infinite;
 }
 
 .swiper-slide {
