@@ -31,7 +31,7 @@ const BannerItem = () => {
   }, []);
 
   // load articles data
-  const { data: articles = [], isLoading, isError, error } = useQuery({
+  const { data: articles = [] } = useQuery({
     queryKey: ['articles'],
     queryFn: async () => {
       const res = await axiosApi.get('/recent-articles-banner');
@@ -46,11 +46,6 @@ const BannerItem = () => {
 
   console.log('articles inside banner item',articles)
   
-  
-  
-// manage loading and error
-  if (isLoading) return <LoadingSpinner />
-  if(isError) return <ErrorMessage error={error}/>
 
 
   return (

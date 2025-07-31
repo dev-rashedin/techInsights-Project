@@ -46,15 +46,15 @@ const BannerCard = ({ article, refetch }) => {
         </p>
       </div>
 
-      <div className='mt-4 xl:mt-8 h-[45%]'>
+      <div className='mt-4 h-[45%]'>
         {/* image */}
         <img
-          className='rounded-xl mx-auto h-full w-full lg:w-[90%]  mb-6'
+          className='rounded-xl mx-auto h-full w-full lg:w-[90%]'
           src={image_url ? image_url : placeholderImage}
           alt=''
         />
         {/* title */}
-        <p className='text-lg lg:text-xl font-bold lg:mt-6 xl:mt-12'>{title}</p>
+        <p className='text-lg lg:text-xl font-bold lg:mt-6 xl:mt-8'>{title}</p>
         {/* tags */}
         <p className='text-sm flex italic mt-2 pb-1 justify-between  '>
           <span className='flex gap-4'>
@@ -71,8 +71,8 @@ const BannerCard = ({ article, refetch }) => {
           )}
         </p>
 
-        <p className='mt-2 text-sm text-justify max-h-[170px] pb-4 overflow-hidden'>
-          {description.slice(0, 650)}.... <span className='ml-4 xl:ml-8 italic font-bold text-xs tracking-wider'>click to read more</span>
+        <p className='mt-2 text-sm text-justify max-h-40 pb-4 overflow-hidden'>
+          {description.slice(0, 550)}.... <span className='ml-4 xl:ml-8 italic font-bold text-xs tracking-wider'>click to read more</span>
         </p>
       </div>
     </div>

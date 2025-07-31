@@ -70,7 +70,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`lg:px-4 xl:px-8 ${theme?.colors.background} pt-2 lg:pt-4 -mb-3 sticky top-0 z-10 h-24`}
+      className={`lg:px-4 xl:px-8 ${theme?.colors.background} pt-2  -mb-3 sticky top-0 z-10 h-20`}
     >
       <div className='flex justify-between items-center w-full lg:px-2 py-2'>
         <div className='flex-1 lg:-mt-2'>
@@ -230,7 +230,7 @@ navbar end
       </div>
 
       {/* border */}
-      <div className='border-[1px] border-gray-600 w-[92%] md:w-[95%] lg:w-full mx-auto xl:my-2 border-opacity-45'></div>
+      <div className='border-[1px] border-gray-600 w-[92%] md:w-[95%] lg:w-full mx-auto border-opacity-45'></div>
     </div>
   );
 };
