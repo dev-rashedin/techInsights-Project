@@ -22,6 +22,7 @@ import ArticleCard from '../../components/ArticleCard';
 import ScrollingNews from './ScrollingNews';
 import BannerCard from '../../components/BannerCard';
 import { Link } from 'react-router-dom';
+import BannerSkeleton from '../../components/BannerSkeleton';
 
 
 const Banner = () => {
@@ -35,7 +36,6 @@ const Banner = () => {
   // load articles data
   const {
     data: articles = [],
-    refetch,
     isLoading,
     isError,
     error,
@@ -63,7 +63,7 @@ const Banner = () => {
     <div className='flex flex-col-reverse lg:flex-row gap-8 px-4  mx-auto md:px-8'>
       {/* left side */}
       <div className='lg:w-1/2 mt-2 hidden lg:block'>
-     <Suspense fallback={<LoadingSpinner />}>
+     <Suspense fallback={<BannerSkeleton />}>
         <ScrollingNews />
       </Suspense>
       </div>
