@@ -37,6 +37,8 @@ const BannerItem = () => {
       const res = await axiosApi.get('/recent-articles-banner');
       return res.data.data;
     },
+    suspense: true,
+    useErrorBoundary: true,
     onError: (error) => {
       console.error('Error fetching articles:', error);
     },
@@ -52,7 +54,8 @@ const BannerItem = () => {
 
 
   return (
-    <main className='lg:w-1/2 md:ml-2 lg:ml-0 '>
+
+    <main>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

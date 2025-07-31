@@ -33,8 +33,8 @@ export default function ScrollingNews() {
           modules={[Mousewheel]}
           className='mySwiper'
         >
-          {[...articles, ...articles, ...articles].map((article) => (
-            <SwiperSlide key={article._id} className='mb-8'>
+          {[...articles, ...articles, ...articles].map((article, idx) => (
+            <SwiperSlide key={idx} className='mb-8'>
               <h4 className='font-semibold mt-4'>{article.title}</h4>
               <p className='text-sm mt-2 tracking-wider text-justify'>
                 {article?.description}
