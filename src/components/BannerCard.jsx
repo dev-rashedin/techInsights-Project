@@ -71,8 +71,8 @@ const BannerCard = ({ article, refetch }) => {
           )}
         </p>
 
-        <p className='mt-2 text-sm text-justify max-h-40 pb-4 overflow-hidden'>
-          {description.slice(0, 550)}.... <span className='ml-4 xl:ml-8 italic font-bold text-xs tracking-wider'>click to read more</span>
+        <p className='mt-2 text-sm text-justify max-h-[170px] pb-4 overflow-hidden'>
+          {description.slice(0, 650)}.... <span className='ml-4 xl:ml-8 italic font-bold text-xs tracking-wider'>click to read more</span>
         </p>
       </div>
     </div>

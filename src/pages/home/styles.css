@@ -14,8 +14,7 @@
   position: relative;
 }
 
-.scroll-content {
-  
+.scroll-content { 
   display: flex;
   flex-direction: column;
   animation: verticalScroll 300s linear infinite;
