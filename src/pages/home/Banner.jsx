@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -63,7 +63,9 @@ const Banner = () => {
     <div className='flex flex-col-reverse lg:flex-row gap-8 px-4  mx-auto md:px-8'>
       {/* left side */}
       <div className='lg:w-1/2 mt-2 hidden lg:block'>
+     <Suspense fallback={<LoadingSpinner />}>
         <ScrollingNews />
+      </Suspense>
       </div>
 
       {/* right side */}
