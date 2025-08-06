@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const articles_controller_1 = require("../controllers/articles.controller");
+const verifyToken_1 = __importDefault(require("../middlewares/verifyToken"));
+const articlesRouter = express_1.default.Router();
+articlesRouter.get('/articles', articles_controller_1.getArticles);
+articlesRouter.get('/premium-articles', articles_controller_1.getPremiumArticles);
+articlesRouter.get('/recent-articles', articles_controller_1.getRecentArticles);
+articlesRouter.get('/article-count', articles_controller_1.getArticleCount);
+articlesRouter.get('/recent-articles-banner', articles_controller_1.getRecentArticlesBanner);
+articlesRouter.get('/articles/:id', articles_controller_1.getSingleArticle);
+articlesRouter.get('/my-articles/:email', verifyToken_1.default, articles_controller_1.getArticlesByEmail);
+articlesRouter.post('/articles', articles_controller_1.postArticle);
+articlesRouter.put('/articles/:id', verifyToken_1.default, articles_controller_1.updateArticleStatus);
+articlesRouter.patch('/articles/:id/increment-view', articles_controller_1.incrementViewCount);
+articlesRouter.patch('/update/:id', verifyToken_1.default, articles_controller_1.updateArticle);
+articlesRouter.delete('/articles/:id', verifyToken_1.default, articles_controller_1.deleteArticle);
+exports.default = articlesRouter;
