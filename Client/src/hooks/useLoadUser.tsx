@@ -22,10 +22,7 @@ const useLoadUser = () => {
       
       return data.data;
       
-    },
-    onError: (error) => {
-      console.error('Error fetching user:', error);
-    },
+    }
   });
 
   return [userData, refetch, isLoading, isError, error];
