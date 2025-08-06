@@ -1,6 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.{html,js,jsx,tsx}'],
+import type { Config } from 'tailwindcss';
+import daisyui from 'daisyui';
+
+const config: Config = {
+  content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
       raleway: "'Raleway', sans-serif",
@@ -10,7 +12,7 @@ module.exports = {
     extend: {
       colors: {
         'faded-pearl': '#E6DFAF',
-        'midnight-gray': '	#3B3B3B',
+        'midnight-gray': '#3B3B3B',
         'deep-ocean': '#004080',
         'green-lantern': '#046645',
         'pure-white': '#FFFFFF',
@@ -18,5 +20,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [daisyui],
 };
+
+export default config;
