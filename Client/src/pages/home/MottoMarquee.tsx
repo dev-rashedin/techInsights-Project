@@ -1,12 +1,8 @@
-import React from 'react';
 import Marquee from 'react-fast-marquee';
-import AOS from 'aos';
-import 'aos/dist/aos.css'; // You can also use <link> for styles
-// ..
 
 
 const MottoMarquee = () => {
-  const mottos = [
+  const mottos : string[] = [
     "Uncovering Tomorrow's Technology Today.",
     'Where Innovation Meets Analysis.',
     'Your Guide to the Future of Tech.',

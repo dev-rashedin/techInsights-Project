@@ -1,5 +1,5 @@
 import { Typewriter } from 'react-simple-typewriter';
-import MottoMarquee from '../home/MottoMarquee';
+import MottoMarquee from './MottoMarquee';
 import { Link } from 'react-router-dom';
 
 const Logo = () => {

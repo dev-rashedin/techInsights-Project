@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../home/Logo'
+import Logo from './Logo'
 import Banner from './Banner';
 import PublisherSection from './PublisherSection';
 import SubscriptionTeaser from './SubscriptionTeaser';
@@ -7,7 +7,7 @@ import AboutUs from './AboutUs';
 import Poll from './Poll';
 import useLoadUser from '../../hooks/useLoadUser';
 import { useEffect, useState } from 'react';
-import swalAlert from './../../api/swalAlert';
+import swalAlert from '../../api/swalAlert';
 import HomeStats from './HomeStats';
 
 
@@ -19,7 +19,7 @@ const Home = () => {
 
   // show alert if user is not premium
   useEffect(() => {
-    let premiumAlertInterval;
+    let premiumAlertInterval : ReturnType<typeof setInterval>;
 
    
     if (userData && userData?.subscription !== 'premium') {

@@ -3,7 +3,7 @@ import ScrollingNews from "./ScrollingNews";
 import BannerItem from "./BannerItem";
 import BannerSkeleton from "../../components/BannerSkeleton";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import BannerSkeleton2 from './../../components/BannerSkeleton2';
+import BannerSkeleton2 from '../../components/BannerSkeleton2';
 
 
 const Banner = () => {

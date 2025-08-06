@@ -24,6 +24,7 @@
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "date-fns": "^3.6.0",
+    "express-error-toolkit": "^1.1.2",
     "firebase": "^10.13.1",
     "http-status-toolkit": "^2.0.0",
     "localforage": "^1.10.0",
