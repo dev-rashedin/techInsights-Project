@@ -3,7 +3,8 @@ import PageTitle from '../../components/PageTitle';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { axiosApi } from '../../api/axiosApi';
 import Marquee from 'react-fast-marquee';
-import ErrorMessage from './../../components/ErrorMessage';
+import ErrorMessage from '../../components/ErrorMessage';
+import { IPublisher } from '../../../interface';
 
 const PublisherSection = () => {
   const {
@@ -33,7 +34,7 @@ const PublisherSection = () => {
 
       <div className='my-6 mx-6 lg:mx-8'>
         <Marquee direction='right' speed={30}>
-          {publisherData?.map((publisher) => (
+          {publisherData?.map((publisher : IPublisher) => (
             <div
               key={publisher.title}
               className='flex flex-col items-center justify-center mr-8'

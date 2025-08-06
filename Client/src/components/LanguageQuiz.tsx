@@ -27,7 +27,6 @@ const LanguageQuiz = () => {
   // getting data from db
   const {
     data: quizData = {},
-    refetch,
     error,
     isError,
     isLoading,
@@ -36,9 +35,6 @@ const LanguageQuiz = () => {
     queryFn: async () => {
       const { data } = await axiosApi.get('/lang-quiz');
       return data;
-    },
-    onError: (error) => {
-      console.error('Error fetching votes:', error);
     },
   });
 
@@ -54,17 +50,17 @@ const LanguageQuiz = () => {
   )?.votes;
 
   const javascriptVotes = languageVotes?.find(
-    (l) => l.language === 'javascript'
+    (l ) => l.language === 'javascript'
   )?.votes;
 
-  const rustVotes = languageVotes?.find((l) => l.language === 'rust')?.votes;
+  const rustVotes = languageVotes?.find((l ) => l.language === 'rust')?.votes;
 
-  const goVotes = languageVotes?.find((l) => l.language === 'go')?.votes;
+  const goVotes = languageVotes?.find((l ) => l.language === 'go')?.votes;
 
   // console.log(pythonVotes, javascriptVotes, rustVotes, goVotes);
 
   // handle vote function
-  const handleVote = async (option) => {
+  const handleVote = async (option : string) => {
     const { data } = await axiosApi.post('lang-quiz', {
       voterEmail: user?.email,
       votedLang: option,
@@ -78,7 +74,7 @@ const LanguageQuiz = () => {
     }
   };
 
-  const getPercentage = (vote) => ((vote / totalVotes) * 100).toFixed(1);
+  const getPercentage = (vote: number) => ((vote / totalVotes) * 100).toFixed(1);
 
   // manage loading and error
   if (isLoading) return <LoadingSpinner />;

@@ -27,3 +27,9 @@ export interface IArticle {
   posted_time: string;
   writers_email: string;
 }
+
+export interface IPublisher {
+  title: string;
+  logo: string;
+}
+

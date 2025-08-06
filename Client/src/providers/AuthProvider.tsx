@@ -20,7 +20,7 @@ import { axiosApi } from '../api/axiosApi';
 
 
 // ----------- Types -----------
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null
   loading: boolean
   setLoading: (loading: boolean) => void

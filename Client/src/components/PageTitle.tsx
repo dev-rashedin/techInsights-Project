@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types'
 import paperLogo from '../assets/paper.png'
 
 
 
-const PageTitle = ({title}) => {
+const PageTitle = ({title} : {title: string}) => {
   return (
     <div className='flex items-center justify-center'>
       <img className='w-16 h-16' src={paperLogo} alt='' />
@@ -15,8 +14,5 @@ const PageTitle = ({title}) => {
   );
 };
 
-PageTitle.propTypes = {
-  title: PropTypes.string.isRequired
-};
 
 export default PageTitle;
