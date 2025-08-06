@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 
-const Button = ({ label, type, onClick }) => {
+const Button = ({ label, type, onClick } : { label: string; type: string; onClick: () => void }) => {
   let buttonClass =
     'px-4 py-2 rounded-lg hover:rounded-full text-pure-white text-sm lg:text-base font-wendy';
 
@@ -18,10 +17,5 @@ const Button = ({ label, type, onClick }) => {
   );
 };
 
-Button.propTypes = {
-  label: PropTypes.string,
-  type: PropTypes.string,
-  onClick: PropTypes.func,
-};
 
 export default Button;

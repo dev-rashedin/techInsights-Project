@@ -6,9 +6,7 @@ import useAuth from '../../hooks/useAuth';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
 import { toast } from 'react-toastify';
-import logo from '../../assets/logo3.png'
 import { useState } from 'react';
-import ProfileModal from '../../components/modals/ProfileModal';
 import useLoadUser from '../../hooks/useLoadUser';
 
 
