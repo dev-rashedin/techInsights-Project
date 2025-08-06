@@ -9,7 +9,7 @@ A simple news website focused on technology, programming and web development, cr
 ### Admin Password: Hello@123
 
 
-# Features & Characteristics
+# Frontend - Features & Characteristics
 -  Admin Dashboard
 -  MongoDB Connection
 -  CRUD Functionality
@@ -25,7 +25,7 @@ A simple news website focused on technology, programming and web development, cr
 
 
 
-# NPM Package Used for This Project
+# Frontend - NPM Package Used for This Project
 -  TanStack Query
 -  AOS Package
 -  Swiper Slider
@@ -36,3 +36,30 @@ A simple news website focused on technology, programming and web development, cr
 -  Date-Fns
 -  Recharts
 -  React Simple Typewriter
+
+
+## Backend - Features & Characteristics
+-  MongoDB Database
+-  Mongoose ODM
+-  CRUD Functionality
+-  MongoDB Aggregate Pipeline
+-  JWT Authentication
+-  JWT Token Stored in LocalStorage
+-  CORS, CookieParser
+-  Mail Send Using Nodemailer
+-  .env File Used for MongoDB User Name and Password
+
+
+
+
+# Backend - NPM Package Used for This Project
+-  TanStack Query
+-  TanStack Table
+-  Framer Motion
+-  AOS Package
+-  Swiper Slider
+-  React Awesome Reveal
+-  React Hook Form
+-  Lottie React
+-  React Tooltip
+

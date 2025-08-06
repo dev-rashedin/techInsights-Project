@@ -6,27 +6,3 @@ A simple news website focused on technology, programming and web development, cr
 [Visit TechInsights Server Side](https://the-tech-insight-server.vercel.app)
 
 
-# Features & Characteristics
--  MongoDB Database
--  Mongoose ODM
--  CRUD Functionality
--  MongoDB Aggregate Pipeline
--  JWT Authentication
--  JWT Token Stored in LocalStorage
--  CORS, CookieParser
--  Mail Send Using Nodemailer
--  .env File Used for MongoDB User Name and Password
-
-
-
-
-# NPM Package Used for This Project
--  TanStack Query
--  TanStack Table
--  Framer Motion
--  AOS Package
--  Swiper Slider
--  React Awesome Reveal
--  React Hook Form
--  Lottie React
--  React Tooltip
