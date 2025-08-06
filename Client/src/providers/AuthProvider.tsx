@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import {
   createUserWithEmailAndPassword,

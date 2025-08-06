@@ -1,9 +1,29 @@
-import PropTypes from 'prop-types';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
-export const ThemeContext = createContext(null);
 
-const themes = {
+interface Theme {
+  colors: ThemeColors;
+}
+interface ThemeContextType {
+  theme: Theme; // or more specific if you have a theme object
+  toggleTheme: () => void;
+}
+
+interface ThemeColors {
+  primary: string;
+  background: string;
+  textPrimary: string;
+}
+
+interface ThemeProviderProps {
+  children: ReactNode;
+}
+
+export const ThemeContext = createContext<ThemeContextType | null>(null);
+
+
+
+const themes : Record<'light' | 'dark', Theme> = {
   light: {
     colors: {
       primary: 'text-deep-ocean',
@@ -20,10 +40,13 @@ const themes = {
   },
 };
 
-const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
+
+
+
+const ThemeProvider = ({ children } : ThemeProviderProps) => {
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
-    return savedTheme ? savedTheme : 'light';
+    return savedTheme === 'dark' ? 'dark' : 'light';
   });
 
   const toggleTheme = () => {
@@ -32,7 +55,7 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    document.querySelector('html').setAttribute('data-theme', theme);
+    document.querySelector('html')?.setAttribute('data-theme', theme);
   }, [theme]);
 
   return (
@@ -42,8 +65,5 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-ThemeProvider.propTypes = {
-  children: PropTypes.node,
-};
 
 export default ThemeProvider;
