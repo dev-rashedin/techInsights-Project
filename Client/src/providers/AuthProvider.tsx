@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
   EmailAuthProvider,
@@ -12,41 +12,63 @@ import {
   signInWithPopup,
   signOut,
   updatePassword,
-  updateProfile
+  updateProfile,
+  User
 } from 'firebase/auth';
 import auth from '../firebase/firebase.config';
 import { getASecureRandomPassword } from '../api/utils';
 import { axiosApi } from '../api/axiosApi';
 
 
+// ----------- Types -----------
+interface AuthContextType {
+  user: User | null
+  loading: boolean
+  setLoading: (loading: boolean) => void
+  createUser: (email: string, password: string) => Promise<any>
+  updateUserProfile: (name: string, photo: string) => Promise<void>
+  logInUser: (email: string, password: string) => Promise<any>
+  logOutUser: () => Promise<void>
+  googleLogin: () => Promise<any>
+  githubLogin: () => Promise<any>
+  updateUserPass: (user: User, currentPassword: string) => Promise<void>
+  resetUserPass: (email: string) => Promise<void>
+}
+
+interface AuthProviderProps {
+  children: ReactNode
+}
 
 
-export const AuthContext = createContext(null);
+
+
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 // auth Provider
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider
 
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+const AuthProvider = ({ children } : AuthProviderProps) => {
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   // create user
-  const createUser = (email, password) => {
+  const createUser = (email : string, password : string) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // update user
-  const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
+  const updateUserProfile = (name: string, photo: string) => {
+    if (!auth.currentUser) throw new Error('No current user');
+    return updateProfile(auth.currentUser!, {
       displayName: name,
       photoURL: photo,
     });
   };
 
   // login user
-  const logInUser = (email, password) => {
+  const logInUser = (email: string, password : string) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -64,14 +86,14 @@ const AuthProvider = ({ children }) => {
   };
 
   // update password
- const updateUserPass = async (user, currentPassword) => {
+ const updateUserPass = async (user : User, currentPassword : string) => {
    const newPassword = getASecureRandomPassword(); // Generate a secure random password
    setLoading(true);
 
    try {
      // Create the credential using email and current password
      const credential = EmailAuthProvider.credential(
-       user.email,
+       user.email!,
        currentPassword
      );
 
@@ -87,8 +109,8 @@ const AuthProvider = ({ children }) => {
    }
  };
 
-  // reset pass with emial
-  const resetUserPass = (email) => {
+  // reset pass with email
+  const resetUserPass = (email : string) => {
     setLoading(true)
     return sendPasswordResetEmail(auth, email);
   }
@@ -148,10 +170,6 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
-};
-
-AuthProvider.propTypes = {
-  children: PropTypes.node,
 };
 
 export default AuthProvider;

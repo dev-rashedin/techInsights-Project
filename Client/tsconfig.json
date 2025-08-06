@@ -9,5 +9,5 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node"
   },
-  "include": ["src"]
+  "include": ["src", "vite-env.d.ts"]
 }

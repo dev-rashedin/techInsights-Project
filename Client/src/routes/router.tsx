@@ -1,21 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/home/Home';
 import Root from '../layouts/Root';
-import ErrorPage from './../error/ErrorPage';
-import Login from './../pages/auth/Login';
-import Register from './../pages/auth/Register';
+import ErrorPage from '../error/ErrorPage';
+import Login from '../pages/auth/Login';
+import Register from '../pages/auth/Register';
 
 import DashboardLayout from '../layouts/DashboardLayout';
 import AllUsers from '../pages/dashboard/AllUsers';
 
-import AddPublisher from './../pages/dashboard/AddPublisher';
+import AddPublisher from '../pages/dashboard/AddPublisher';
 import Statistics from '../pages/dashboard/Statistics';
-import AddArticles from './../pages/AddArticles';
+import AddArticles from '../pages/AddArticles';
 import AllArticles from '../pages/AllArticles';
-import Subscription from './../pages/Subscription';
-import MyArticles from './../pages/MyArticles';
-import PremiumArticles from './../pages/PremiumArticles';
-import UserProfile from './../pages/UserProfile';
+import Subscription from '../pages/Subscription';
+import MyArticles from '../pages/MyArticles';
+import PremiumArticles from '../pages/PremiumArticles';
+import UserProfile from '../pages/UserProfile';
 import PrivateRoute from './PrivateRoute';
 import AdminArticles from '../pages/dashboard/AdminArticles';
 import Details from '../pages/Details';

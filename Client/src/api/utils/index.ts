@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // Image upload
-export const imageUpload = async image => {
+export const imageUpload = async ( image : File) : Promise<string> => {
   const formData = new FormData()
   formData.append('image', image)
   const { data } = await axios.post(
@@ -11,7 +11,7 @@ export const imageUpload = async image => {
   return data.data.display_url
 }
 
-export function getASecureRandomPassword() {
+export function getASecureRandomPassword(): string {
   // Example of a secure password generator
   const charset =
     'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
