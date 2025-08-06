@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
-import Navbar from './../pages/shared/Navbar';
-import Footer from './../pages/shared/Footer';
+import Navbar from '../pages/shared/Navbar';
+import Footer from '../pages/shared/Footer';
 
 const Root = () => {
   const { theme } = useTheme();

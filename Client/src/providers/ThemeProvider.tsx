@@ -1,18 +1,18 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
 
-interface Theme {
-  colors: ThemeColors;
-}
-interface ThemeContextType {
-  theme: Theme; // or more specific if you have a theme object
-  toggleTheme: () => void;
-}
-
 interface ThemeColors {
   primary: string;
   background: string;
   textPrimary: string;
+}
+
+interface Theme {
+  colors: ThemeColors;
+}
+export interface ThemeContextType {
+  theme: Theme; // or more specific if you have a theme object
+  toggleTheme: () => void;
 }
 
 interface ThemeProviderProps {

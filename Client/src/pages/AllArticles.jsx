@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import PageTitle from '../components/PageTitle';
 import useLoadArticles from '../hooks/useLoadArticles';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
