@@ -1,6 +1,5 @@
-import { Suspense, useEffect, useState } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,20 +13,20 @@ import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import '../home/Banner.css';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { axiosApi } from '../../api/axiosApi';
 import BannerCard from '../../components/BannerCard';
 import { Link } from 'react-router-dom';
-i
+import { IArticle } from './../../../interface';
 
 
 const BannerItem = () => {
 
-  useEffect(() => {
-    AOS.init({
-      once: true,
-    });
-  }, []);
+  // useEffect(() => {
+  //   AOS.init({
+  //     once: true,
+  //   });
+  // }, []);
 
   // load articles data
   const { data: articles = [] } = useSuspenseQuery({
@@ -63,7 +62,7 @@ const BannerItem = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className='mySwiper'
       >
-        {articles.map((article) => (
+        {articles.map((article: IArticle) => (
           <SwiperSlide key={article._id}>
             <Link to={`/details/${article._id}`}>
               <BannerCard article={article} />

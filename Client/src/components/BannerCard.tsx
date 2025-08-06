@@ -1,15 +1,10 @@
 import placeholderImage from '../assets/placeholder.png';
+import { IArticle } from './../../interface';
 
-const BannerCard = ({ article, refetch }) => {
+const BannerCard = ({ article } : { article: IArticle }) => {
   // destructuring article
-  const {
-    title,
-    description,
-    image_url,
-    tags,
-    publisher,
-    posted_time,
-  } = article;
+  const { title, description, image_url, tags, publisher, posted_time } =
+    article;
 
   return (
     <div
@@ -67,7 +62,10 @@ const BannerCard = ({ article, refetch }) => {
         </p>
 
         <p className='mt-2 text-sm text-justify max-h-[170px] pb-4 overflow-hidden'>
-          {description.slice(0, 650)}.... <span className='ml-4 xl:ml-8 italic font-bold text-xs tracking-wider'>click to read more</span>
+          {description.slice(0, 650)}....{' '}
+          <span className='ml-4 xl:ml-8 italic font-bold text-xs tracking-wider'>
+            click to read more
+          </span>
         </p>
       </div>
     </div>

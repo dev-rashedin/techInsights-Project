@@ -3,6 +3,7 @@ import PageTitle from '../../components/PageTitle';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { axiosApi } from '../../api/axiosApi';
 import Marquee from 'react-fast-marquee';
+import ErrorMessage from './../../components/ErrorMessage';
 
 const PublisherSection = () => {
   const {
@@ -18,16 +19,13 @@ const PublisherSection = () => {
 
       return data;
     },
-    onError: (error) => {
-      //console.log('Error fetching user:', error);
-    },
   });
 
   // console.log(publisherData)
   
 
   if (isLoading) return <LoadingSpinner />;
-  if (isError) return <LoadingSpinner error='error' />;
+  if (isError) return <ErrorMessage error={error} />;
 
   return (
     <div>
