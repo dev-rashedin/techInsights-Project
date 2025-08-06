@@ -14,12 +14,11 @@ import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import '../home/Banner.css';
-import { useQuery } from '@tanstack/react-query';
-import LoadingSpinner from '../../components/LoadingSpinner';
-import ErrorMessage from '../../components/ErrorMessage';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { axiosApi } from '../../api/axiosApi';
 import BannerCard from '../../components/BannerCard';
 import { Link } from 'react-router-dom';
+i
 
 
 const BannerItem = () => {
@@ -31,16 +30,11 @@ const BannerItem = () => {
   }, []);
 
   // load articles data
-  const { data: articles = [] } = useQuery({
+  const { data: articles = [] } = useSuspenseQuery({
     queryKey: ['articles'],
     queryFn: async () => {
       const res = await axiosApi.get('/recent-articles-banner');
       return res.data.data;
-    },
-    suspense: true,
-    useErrorBoundary: true,
-    onError: (error) => {
-      console.error('Error fetching articles:', error);
     },
   });
 

@@ -2,22 +2,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel } from 'swiper/modules';
 import 'swiper/css';
 import './styles.css';
-
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { axiosApi } from '../../api/axiosApi';
 
+
+
 export default function ScrollingNews() {
-  const { data: articles = [] } = useQuery({
+  const { data: articles = [] } = useSuspenseQuery({
     queryKey: ['recent-articles'],
     queryFn: async () => {
       const res = await axiosApi.get('/recent-articles');
       return res.data.data;
     },
-    suspense: true,
-    useErrorBoundary: true,
-    onError: (error) => {
-      console.error('Error fetching articles:', error);
-    },
+  
   });
 
   return (

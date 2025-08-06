@@ -1,9 +1,4 @@
-import { Link } from 'react-router-dom';
 import placeholderImage from '../assets/placeholder.png';
-import { axiosApi } from '../api/axiosApi';
-import useLoadUser from '../hooks/useLoadUser';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Marquee from 'react-fast-marquee';
 
 const BannerCard = ({ article, refetch }) => {
   // destructuring article
