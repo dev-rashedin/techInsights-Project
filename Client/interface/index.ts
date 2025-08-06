@@ -33,3 +33,41 @@ export interface IPublisher {
   logo: string;
 }
 
+
+export type VoteOption = 'javascript' | 'python' | 'rust' | 'go';
+
+export interface LanguageVote {
+  language: VoteOption;
+  votes: number;
+}
+
+export interface QuizData {
+  totalVotes: number;
+  languageVotes: LanguageVote[];
+}
+
+export interface PollOptionProps {
+  option: string;
+  percentage: string;
+  userVote: string | null;
+  onVote: () => void;
+}
+
+
+export interface SectorVote {
+  sector: string;
+  votes: number;
+}
+
+export interface VoteData {
+  totalVotes: number;
+  demandingSectors: SectorVote[];
+}
+
+export interface DemandingPollOptionProps {
+  option: string;
+  info: string;
+  userVote: string | null;
+  percentage: string;
+  onVote: () => void;
+}
