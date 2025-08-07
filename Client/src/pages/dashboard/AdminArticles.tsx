@@ -113,7 +113,7 @@ const AdminArticles = () => {
           value={filter}
           name='publisher'
           id='publisher'
-          className='border text-sm lg:text-base px-2 py-2 md:py-0 rounded-lg font-medium'
+          className='border border-gray-600 text-sm lg:text-base px-2 py-2 md:py-0 rounded-lg font-medium'
         >
           <option value=''>Filter By Publisher</option>
           <option value='AI Revolution'>AI Revolution</option>
@@ -131,7 +131,7 @@ const AdminArticles = () => {
                 setSearchText(e.target.value);
               }}
               value={searchText}
-              className=' placeholder-gray-500 bg-white outline-none focus:placeholder-transparent text-sm lg:text-base p-2 rounded-md'
+              className=' placeholder-gray-500 bg-white outline-none focus:placeholder-transparent text-sm lg:text-base p-2 rounded-md rounded-tr-none rounded-br-none border border-gray-600'
               type='text'
               name='search'
               placeholder='Enter Post Title'
@@ -140,7 +140,7 @@ const AdminArticles = () => {
 
             <button
               type='submit'
-              className='text-sm lg:text-base p-2  font-medium text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'
+              className='text-sm lg:text-base p-2  font-medium text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md rounded-tl-none rounded-bl-none hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'
             >
               Search
             </button>
@@ -157,7 +157,7 @@ const AdminArticles = () => {
             value={sort}
             name='category'
             id='category'
-            className='border text-sm lg:text-base p-2  rounded-md w-full'
+            className=' text-sm lg:text-base p-2.5  rounded-md w-full border border-gray-600'
           >
             <option value=''>Sort By Posted Time</option>
             <option value='dsc'>Descending Order</option>
@@ -175,7 +175,7 @@ const AdminArticles = () => {
 
       {/* loading all articles */}
       <div className='grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-28 mx-4 md:mx-10 lg:mx-28 xl:mx-8 mt-20'>
-        {articles?.map((article : IArticle) => (
+        {articles?.map((article: IArticle) => (
           <AdminArticleCard
             key={article._id}
             article={article}

@@ -21,14 +21,26 @@ const renderCustomizedLabel = ({
   percent,
   index,
 }: {
-  cx: number;
-  cy: number;
-  midAngle: number;
-  innerRadius: number;
-  outerRadius: number;
-  percent: number;
-  index: number;
+  cx?: number;
+  cy?: number;
+  midAngle?: number;
+  innerRadius?: number;
+  outerRadius?: number;
+  percent?: number;
+  index?: number;
 }) => {
+  if (
+    cx === undefined ||
+    cy === undefined ||
+    midAngle === undefined ||
+    innerRadius === undefined ||
+    outerRadius === undefined ||
+    percent === undefined ||
+    index === undefined
+  ) {
+    return null;
+  }
+
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -58,7 +70,7 @@ const UserPieChart = ({ subscriptionCount} : {subscriptionCount: any}) => {
 
   return (
     <ResponsiveContainer width='100%' height='100%'>
-      <PieChart width={600} height={600}>
+      <PieChart width={800} height={800}>
         <Pie
           data={data}
           cx='50%'

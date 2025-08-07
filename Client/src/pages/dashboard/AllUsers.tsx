@@ -68,7 +68,7 @@ const AllUsers = () => {
       <PageTitle title={`All Users : ${users?.length}`} />
 
       <div className='overflow-x-auto '>
-        <table className='table table-sm lg:table-md  w-full border-2 border-green-lantern lg:w-3/4 mx-auto'>
+        <table className='table table-sm lg:table-md xl:table-lg bg-green-lantern/10  w-full lg:w-3/4 xl:w-full mx-auto'>
           {/* head */}
           <thead>
             <tr className=' border-b-2 border-green-lantern text-lg text-slate-800 text-center'>

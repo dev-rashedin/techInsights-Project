@@ -58,15 +58,15 @@ const AddPublisher = () => {
   return (
     <div 
       onClick={isActive ? handleToggle : undefined}
-      className='mt-12 lg:mt- overflow-x-auto'>
+      className='overflow-x-hidden -mt-40 lg:-mt-20'>
       <Helmet>
         <title>Tech Insights || Admin - Add Publisher</title>
       </Helmet>
       <PageTitle title='Add Publisher' />
 
-      <div className='mx-4 lg:w-1/2 lg:mx-auto bg-gradient-to-br from-green-lantern to-blue-950 p-12 lg:p-20 rounded-xl'>
+      <div className=' max-w-xl mx-auto bg-transparent md:bg-gradient-to-br from-green-lantern/80 to-green-lantern/60 p-0 md:p-8 lg:p-10 rounded-xl'>
         {/*  form */}
-        <form onSubmit={handleSubmit(handleRegister)} className=' space-y-2'>
+        <form onSubmit={handleSubmit(handleRegister)} className=' space-y-2 w-ful'>
           {/* publisher */}
           <div className='form-control'>
             <input
@@ -95,6 +95,7 @@ const AddPublisher = () => {
               id='photo'
               accept='image/*'
               onChange={handleImageChange}
+              className='-ml-4 md:ml-4'
             />
           </div>
 
@@ -102,7 +103,7 @@ const AddPublisher = () => {
             <button
               disabled={loading}
               type='submit'
-              className='btn bg-green-lantern text-pure-white hover:bg-deep-ocean mt-2'
+              className='btn bg-green-lantern text-white hover:bg-deep-ocean mt-2 border-transparent'
             >
               {loading ? (
                 <ImSpinner9 className='animate-spin m-auto text-deep-ocean' />

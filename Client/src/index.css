@@ -8,7 +8,7 @@
 
 @layer utility {
   .dashboardSmallCard {
-    @apply w-full md:w-72  xl:w-[300px] h-28 md:h-32 relative flex flex-col justify-center bg-clip-border rounded-xl bg-slate-100 text-gray-700 shadow-md
+    @apply w-full md:w-72  xl:w-[300px] h-28 md:h-32 relative flex flex-col justify-center px-4 bg-clip-border rounded-xl bg-slate-300 text-gray-700 drop-shadow-md
   }
 }
 
