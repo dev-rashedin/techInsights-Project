@@ -1,3 +1,14 @@
+export interface IUser {
+  _id: string;
+  email: string;
+  displayName: string;
+  photoURL: string;
+  premiumToken: string | null;
+  role: 'user' | 'admin' | 'Requested';
+  status: 'verified' | 'requested' | 'remove-admin' | 'banned';
+  subscription: 'usual' | 'premium';
+}
+
 export type TagType =
   | 'AI'
   | 'Cybersecurity'
@@ -33,7 +44,6 @@ export interface IPublisher {
   logo: string;
 }
 
-
 export type VoteOption = 'javascript' | 'python' | 'rust' | 'go';
 
 export interface LanguageVote {
@@ -52,7 +62,6 @@ export interface PollOptionProps {
   userVote: string | null;
   onVote: () => void;
 }
-
 
 export interface SectorVote {
   sector: string;
@@ -78,5 +87,7 @@ export interface NavItem {
 }
 
 export interface ButtonProps {
-  label: string; type: string; onClick?: () => void 
+  label: string;
+  type: string;
+  onClick?: () => void;
 }

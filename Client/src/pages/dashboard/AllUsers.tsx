@@ -2,18 +2,18 @@ import { Helmet } from 'react-helmet-async';
 import PageTitle from '../../components/PageTitle';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { FaTrashAlt, FaUsers } from 'react-icons/fa';
-import Swal from 'sweetalert2';
-import { MdAdminPanelSettings } from 'react-icons/md';
 import { createOrUpdateUser } from '../../api/userApi';
 import { toast } from 'react-toastify';
-import { useLoaderData, useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
+import { IUser } from '../../../interface';
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
 
-
-  const { isActive, handleToggle } = useOutletContext();
+  const {
+    isActive,
+    handleToggle,
+  }: { isActive: boolean; handleToggle: () => void } = useOutletContext();
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ['users'],
@@ -27,7 +27,7 @@ const AllUsers = () => {
 
   const originalAdmin = 'rashedinislam.06@gmail.com';
 
-  const handleMakeAdmin = async (userEmail) => {
+  const handleMakeAdmin = async (userEmail: string) => {
     const userInfo = {
       email: userEmail,
       role: 'admin',
@@ -43,7 +43,7 @@ const AllUsers = () => {
     }
   };
 
-  const handleRemoveAdmin = async (userEmail) => {
+  const handleRemoveAdmin = async (userEmail: string) => {
     const userInfo = {
       email: userEmail,
       status: 'remove-admin',
@@ -54,14 +54,14 @@ const AllUsers = () => {
       if (result) {
         await refetch();
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
       console.error(error);
     }
   };
 
   return (
-    <div onClick={isActive && handleToggle}>
+    <div onClick={isActive ? handleToggle : undefined}>
       <Helmet>
         <title>Tech Insights || Admin - All Users</title>
       </Helmet>
@@ -82,7 +82,7 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users?.map((user, index) => (
+            {users?.map((user: IUser, index: number) => (
               <tr className='border-b border-green-lantern' key={user._id}>
                 <td className='border border-green-lantern text-sm font-semibold'>
                   {index + 1}

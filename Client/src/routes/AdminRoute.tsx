@@ -5,7 +5,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { toast } from "react-toastify";
 
 
-const AdminRoute = ({children}) => {
+const AdminRoute = ({children} : {children: JSX.Element}) => {
     const { user, loading } = useAuth(); 
     const [userData, , isLoading] = useLoadUser();
 
