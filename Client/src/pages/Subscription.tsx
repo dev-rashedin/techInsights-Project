@@ -7,10 +7,10 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 
 const Subscription = () => {
-  const [userData,  isError, error] = useLoadUser();
+  const [userData] = useLoadUser();
 
   // if (isLoading) return <LoadingSpinner />
-  if(isError) return <ErrorMessage error={error}/>
+  // if(isError) return <ErrorMessage error={error}/>
   
 // calculate current time and premium token time
  const currentTimeInMilliseconds = Date.now();
