@@ -12,21 +12,50 @@ import { useState } from 'react';
 import { imageUpload, useImageFile } from '../api/utils';
 import swalAlert from '../api/swalAlert';
 import { toast } from 'react-toastify';
+import { IPublisher } from '../../interface';
+
+interface Article {
+  _id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  tags: string[];
+  publisher: string;
+}
+
+interface TagOption {
+  value: string;
+  label: string;
+}
+
+interface FormInput {
+  title: string;
+  description: string;
+  image?: FileList;
+  publisher: string;
+}
+
+const tagsOptions: TagOption[] = [
+  { value: 'AI', label: 'AI' },
+  { value: 'Cybersecurity', label: 'Cybersecurity' },
+  { value: 'Software', label: 'Software' },
+  { value: 'Web Development', label: 'Web Development' },
+  { value: 'Programming', label: 'Programming' },
+];
 
 const UpdateArticle = () => {
-   const { imageFile, handleImageChange } = useImageFile();
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedPublisher, setSelectedPublisher] = useState(null);
+  const { imageFile, handleImageChange } = useImageFile();
+  const [selectedTags, setSelectedTags] = useState<TagOption[]>([]);
+  const [selectedPublisher, setSelectedPublisher] = useState<string | null>(
+    null
+  );
 
-  const { id } = useParams();
-  
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-
   const axiosSecure = useAxiosSecure();
 
-  // fetching article data
   const {
-    data: article = {},
+    data: article = {} as Article,
     isLoading,
     isError,
     error,
@@ -35,25 +64,15 @@ const UpdateArticle = () => {
     enabled: !!id,
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/articles/${id}`);
-
       return data;
-    },
-    onError: (error) => {
-      //console.log('Error fetching article:', error);
     },
   });
 
-  // fetching publisher data
-  const { data: publisherData = [] } = useQuery({
+  const { data: publisherData = [] } = useQuery<IPublisher[]>({
     queryKey: ['publishers'],
-
     queryFn: async () => {
       const { data } = await axiosApi.get('/publishers');
-
       return data;
-    },
-    onError: (error) => {
-      //console.log('Error fetching user:', error);
     },
   });
 
@@ -61,69 +80,51 @@ const UpdateArticle = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormInput>();
 
-  // static tags options
-  const tagsOptions = [
-    { value: 'AI', label: 'AI' },
-    { value: 'Cybersecurity', label: 'Cybersecurity' },
-    { value: 'Software', label: 'Software' },
-    { value: 'Web Development', label: 'Web Development' },
-    { value: 'Programming', label: 'Programming' },
-  ];
-
-  // Handle form submission
-  const handleUpdateArticle = async (data) => {
+  const handleUpdateArticle = async (data: FormInput) => {
     const { title, description } = data;
 
-    let image_url = null;
-    imageFile
-      ? (image_url = await imageUpload(imageFile))
-      : (image_url = article.image_url);
+    const image_url = imageFile
+      ? await imageUpload(imageFile)
+      : article.image_url;
+    const publisher = selectedPublisher || article.publisher;
+    const tags =
+      selectedTags.length > 0
+        ? selectedTags.map((tag) => tag.value)
+        : article.tags;
 
-    selectedPublisher
-      ? setSelectedPublisher(selectedPublisher)
-      : setSelectedPublisher(article.publisher);
-
-    selectedTags.length > 0
-      ? (data.tags = selectedTags.map((tag) => (data.tags = tag.value)))
-      : (data.tags = article.tags);
-
-    if (
+    const hasChanges =
       title !== article.title ||
+      description !== article.description ||
       imageFile ||
-      description !== article.description
-    ) {
-      // Prepare formData
-      const formData = {
-        title,
-        description,
-        image_url,
-        tags: data.tags,
-        publisher: selectedPublisher,
-      };
+      publisher !== article.publisher ||
+      JSON.stringify(tags) !== JSON.stringify(article.tags);
 
-      // console.log(formData);
-      
-
-      try {
-        const res = await axiosSecure.patch(`update/${id}`, formData);
-        console.log(res)
-
-        if (res.data.modifiedCount) {
-          toast.success('Update Successful');
-          navigate('/my-articles');
-        }
-      } catch (error) {
-        console.error(error.message);
-        toast.error(error.message);
-      }
-    } else {
+    if (!hasChanges) {
       swalAlert('warning', 'Please update article info');
+      return;
+    }
+
+    const formData = {
+      title,
+      description,
+      image_url,
+      tags,
+      publisher,
+    };
+
+    try {
+      const res = await axiosSecure.patch(`/update/${id}`, formData);
+      if (res.data.modifiedCount) {
+        toast.success('Update Successful');
+        navigate('/my-articles');
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+      console.error(err);
     }
   };
-
-  // Handle file input changes
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <ErrorMessage error={error} />;
@@ -138,46 +139,52 @@ const UpdateArticle = () => {
       <div className='border-2 border-dotted border-faded-pearl p-8 rounded-xl mx-8 lg:w-1/2 lg:mx-auto shadow-2xl -mt-4'>
         <form
           onSubmit={handleSubmit(handleUpdateArticle)}
-          className=' space-y-2'
+          className='space-y-2'
         >
           {/* Title */}
           <div className='form-control'>
             <input
               defaultValue={article.title}
               type='text'
-              {...register('title')}
+              {...register('title', { required: 'Title is required' })}
               placeholder='Title'
               className='input input-bordered'
             />
+            {errors.title && (
+              <p className='text-red-500 mt-2'>{errors.title.message}</p>
+            )}
           </div>
 
           {/* Image Upload */}
           <div className='flex justify-between items-center py-1 bg-white rounded-md'>
             <label
               htmlFor='image'
-              className='block mb-2 pt-2 pl-[14px] min-w-40  text-gray-600'
+              className='pt-2 pl-[14px] min-w-40 text-gray-600'
             >
               Select Image:
             </label>
             <input
               type='file'
-              {...register('image')}
-              accept='image/*'
               id='image'
+              accept='image/*'
+              {...register('image')}
               onChange={handleImageChange}
             />
           </div>
 
-          {/* Publisher & tags Dropdown */}
-
+          {/* Publisher & Tags */}
           <div className='flex gap-4 pt-[1px]'>
-            {/* Tags Multi-Select */}
             <div className='form-control w-2/3'>
               <Select
-                defaultInputValue={article.tags}
+                defaultValue={article.tags.map((tag: { value: string; label: string}) => ({
+                  value: tag,
+                  label: tag,
+                }))}
                 options={tagsOptions}
                 isMulti
-                onChange={setSelectedTags}
+                onChange={(selected) =>
+                  setSelectedTags(selected as TagOption[])
+                }
                 placeholder='Select Tags'
                 styles={{
                   control: (base) => ({
@@ -192,7 +199,6 @@ const UpdateArticle = () => {
                 }}
               />
             </div>
-            {/* publishers */}
             <div className='form-control'>
               <select
                 defaultValue={article.publisher}
@@ -209,21 +215,29 @@ const UpdateArticle = () => {
                   </option>
                 ))}
               </select>
+              {errors.publisher && (
+                <p className='text-red-500 mt-2'>{errors.publisher.message}</p>
+              )}
             </div>
           </div>
 
-          {/* Description Textarea */}
+          {/* Description */}
           <div className='form-control'>
             <textarea
               rows={20}
-              {...register('description')}
+              {...register('description', {
+                required: 'Description is required',
+              })}
               placeholder='Description'
-              className='textarea textarea-bordered'
               defaultValue={article.description}
+              className='textarea textarea-bordered'
             />
+            {errors.description && (
+              <p className='text-red-500 mt-2'>{errors.description.message}</p>
+            )}
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <div className='form-control mt-6'>
             <button
               type='submit'
@@ -237,4 +251,5 @@ const UpdateArticle = () => {
     </div>
   );
 };
+
 export default UpdateArticle;

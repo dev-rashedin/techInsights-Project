@@ -10,7 +10,6 @@ import useAuth from '../hooks/useAuth';
 import { BsEye } from 'react-icons/bs';
 import { MdCategory, MdPermIdentity, MdPublish } from 'react-icons/md';
 import Button from '../components/Button';
-import useLoadArticles from '../hooks/useLoadArticles';
 import { CgTimer } from 'react-icons/cg';
 import { axiosApi } from '../api/axiosApi';
 
@@ -35,9 +34,6 @@ const Details = () => {
       const { data } = await axiosApi.get(`/articles/${id}`);
       return data;
     },
-    onError: (error) => {
-      //console.log('Error fetching article:', error);
-    },
   });
 
   // destructuring article
@@ -47,7 +43,6 @@ const Details = () => {
     image_url,
     tags,
     publisher,
-    isPremium,
     status,
     posted_by,
     posted_time,
@@ -100,7 +95,7 @@ const Details = () => {
           <div className='mt-6'>
             <p className='text-sm md:flex italic mt-2 pb-2 justify-between mx-2'>
               <span className='flex gap-4 font-semibold'>
-                {tags.map((tag) => (
+                {tags.map((tag : string) => (
                   <span key={tag}># {tag}</span>
                 ))}
               </span>

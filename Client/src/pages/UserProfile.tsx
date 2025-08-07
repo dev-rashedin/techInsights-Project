@@ -2,10 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { FaEdit, FaUserCog } from 'react-icons/fa';
 import { BsEnvelopeAt } from 'react-icons/bs';
 import {
-  MdBrowserUpdated,
   MdSubscriptions,
-  MdSystemUpdate,
-  MdUpdate,
 } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import useLoadUser from '../hooks/useLoadUser';
@@ -14,6 +11,7 @@ import { createOrUpdateUser } from '../api/userApi';
 import { useState } from 'react';
 import ProfileModal from '../components/modals/ProfileModal';
 import useAuth from '../hooks/useAuth';
+import { User } from 'firebase/auth';
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +20,7 @@ const UserProfile = () => {
     setIsOpen(!isOpen);
   };
 
-  const [userData, refetch, isLoading, isError, error] = useLoadUser();
+  const [userData, refetch, isError, error] = useLoadUser();
   
 
   const { user } = useAuth();
@@ -84,11 +82,11 @@ const UserProfile = () => {
           <div className='lg:flex lg:gap-4 pt-3'>
             <p className='  text-xs lg:text-sm flex items-center justify-center lg:justify-start'>
               <span className='mr-2  font-wendy'> User Created : </span>
-              {new Date(parseInt(user?.metadata?.createdAt)).toLocaleString()}
+              {new Date(parseInt(user?.metadata?.creationTime as string)).toLocaleString()}
             </p>
             <p className='pt-1 text-xs lg:text-sm flex items-center justify-center lg:justify-start'>
               <span className='mr-2  font-wendy'> Last Login : </span>
-              {new Date(parseInt(user?.metadata?.lastLoginAt)).toLocaleString()}
+              {new Date(parseInt(user?.metadata?.lastSignInTime as string)).toLocaleString()}
             </p>
           </div>
 

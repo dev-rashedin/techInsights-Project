@@ -1,7 +1,7 @@
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { useLocation } from 'react-router-dom';
-import PageTitle from './../../components/PageTitle';
+import PageTitle from '../../components/PageTitle';
 import CheckoutForm from './CheckoutForm';
 
 const Payment = () => {

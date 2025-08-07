@@ -3,17 +3,17 @@ import { useEffect, useState } from 'react';
 
 import './CheckoutStyle.css';
 import { ImSpinner9 } from 'react-icons/im';
-import useAxiosSecure from './../../hooks/useAxiosSecure';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import Subscription from '../Subscription';
-import { createOrUpdateUser } from './../../api/userApi';
-import useLoadUser from './../../hooks/useLoadUser';
+import { createOrUpdateUser } from '../../api/userApi';
+import useLoadUser from '../../hooks/useLoadUser';
 
-const CheckoutForm = ({ price, validationTime, subscriptionType }) => {
+const CheckoutForm = ({ price, validationTime, subscriptionType } : {price: number, validationTime: number, subscriptionType: string}) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [clientSecret, setClientSecret] = useState();
+  const [clientSecret, setClientSecret] = useState<string>('');
   const [confirmPaymentError, setConfirmPaymentError] = useState('');
   const [transactionId, setTransactionId] = useState('');
 
@@ -31,7 +31,7 @@ const CheckoutForm = ({ price, validationTime, subscriptionType }) => {
   }, [])
  
   // send payment info to backend
-  const sendPaymentInfo = async (price) => {
+  const sendPaymentInfo = async (price : number) => {
     const { data } = await axiosSecure.post('/create-payment-intent', { price: price });
     
     // console.log(data.clientSecret)
@@ -40,7 +40,7 @@ const CheckoutForm = ({ price, validationTime, subscriptionType }) => {
   }
 
   // handle submit fn
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e : React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -50,14 +50,14 @@ const CheckoutForm = ({ price, validationTime, subscriptionType }) => {
     if (!card) return;
 
     // create payment method
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error , paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card,
     });
 
     if (error) {
       console.error('payment error', error)
-      setError(error.message);
+      setError(error.message || '');
       setLoading(false);
     } else {
       //console.log('payment method', paymentMethod)
@@ -66,7 +66,7 @@ const CheckoutForm = ({ price, validationTime, subscriptionType }) => {
 
     // confirm payment
 
-    const {paymentIntent, error: confirmPaymentError} = await stripe.confirmCardPayment(clientSecret, {
+    const { paymentIntent, error: confirmPaymentError } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: card,
         billing_details: {
@@ -79,7 +79,7 @@ const CheckoutForm = ({ price, validationTime, subscriptionType }) => {
     if (confirmPaymentError) {
       setLoading(false)
       console.error(confirmPaymentError)
-      setConfirmPaymentError(confirmPaymentError.message)
+      setConfirmPaymentError(confirmPaymentError.message || '')
       setTransactionId('')
     } else {
       // console.log('payment intent', paymentIntent)
