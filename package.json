@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "express-error-toolkit": "^1.1.2",
     "http-status-toolkit": "^2.0.0"
   }
 }

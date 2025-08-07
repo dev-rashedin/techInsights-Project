@@ -8,25 +8,31 @@ import { postPublisherInfo } from '../../api/userApi';
 import { useOutletContext } from 'react-router-dom';
 import { StatusCodes } from 'http-status-toolkit';
 import { toast } from 'react-toastify';
-import useAxiosSecure from './../../hooks/useAxiosSecure';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { IPublisher } from '../../../interface';
+
+type FormData = {
+  publisher: string;
+  logo: string;
+}
 
 const AddPublisher = () => {
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const axiosSecure = useAxiosSecure();
 
-  const { isActive, handleToggle } = useOutletContext();
+  const { isActive, handleToggle } : { isActive: boolean; handleToggle: () => void } = useOutletContext();
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
   // Form submission handler
-  const handleRegister = async ({ publisher }) => {
-    const image_url = await imageUpload(imageFile);
+  const handleRegister = async ({ publisher } : { publisher: string }) => {
+    const image_url = await imageUpload(imageFile!);
     const publisherData = {
       title: publisher,
       logo: image_url,
@@ -42,7 +48,7 @@ const AddPublisher = () => {
         reset();
         setLoading(false);
       }
-    } catch (err) {
+    } catch (err : any) {
       //console.log('Error:', err);
       toast.error(err.message);
     } finally {
@@ -51,14 +57,17 @@ const AddPublisher = () => {
   };
 
   // Handle file input changes
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
     setImageFile(file);
   };
 
   return (
     <div 
-      onClick={isActive && handleToggle}
+      onClick={isActive ? handleToggle : undefined}
       className='mt-12 lg:mt- overflow-x-auto'>
       <Helmet>
         <title>Tech Insights || Admin - Add Publisher</title>
@@ -77,8 +86,8 @@ const AddPublisher = () => {
               required
               className='input input-bordered bg-faded-pearl placeholder:    font-semibold placeholder:text-gray-500'
             />
-            {errors.name && (
-              <p className='text-red-500 mt-2'>{errors.publisher.message}</p>
+            {errors.publisher && (
+              <p className='text-red-500 mt-2'>{errors.publisher.message as string}</p>
             )}
           </div>
 
