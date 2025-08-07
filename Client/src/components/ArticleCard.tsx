@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import placeholderImage from '../assets/placeholder.png';
 import { axiosApi } from '../api/axiosApi';
 import useLoadUser from '../hooks/useLoadUser';
+import { IArticle } from '../../interface';
 
-const ArticleCard = ({ article, refetch }) => {  
+const ArticleCard = ({ article, refetch } : { article: IArticle; refetch: any }) => {  
 
   // destructuring article
   const {
@@ -14,7 +15,6 @@ const ArticleCard = ({ article, refetch }) => {
     tags,
     publisher,
     isPremium,
-    posted_by,
     posted_time
   } = article;
 
