@@ -5,7 +5,6 @@ import {
   TransitionChild,
   DialogPanel,
   DialogTitle,
-  Description,
 } from '@headlessui/react';
 import { Fragment } from 'react';
 import { MdClose } from 'react-icons/md';
@@ -14,17 +13,23 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { StatusCodes } from 'http-status-toolkit';
+import { DeclinedModalProps } from '../../../interface';
 
-const DeclineModal = ({ isOpen, closeModal, handleDeclineBtn, id }) => {
+
+type FormData = {
+  message: string
+}
+
+const DeclineModal = ({ isOpen, closeModal, handleDeclineBtn, id } : DeclinedModalProps) => {
   const axiosSecure = useAxiosSecure();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
-  const handleSubmitMessage = async (data) => {
+  const handleSubmitMessage = async (data: { message: string }) => {
     try {
       const declinedMessage = {
         articleId: id,
@@ -41,7 +46,7 @@ console.log(res)
         handleDeclineBtn(id);
         closeModal;
       }
-    } catch (error) {
+    } catch (error : any) {
       toast.error(error.message);
       console.error(error);
     }
@@ -82,13 +87,13 @@ console.log(res)
               {/* name */}
               <div className='form-control'>
                 <textarea
-                  rows='4'
+                  rows={4}
                   {...register('message', { required: true })}
                   placeholder='Typing....'
                   className='p-4 rounded-lg bg-faded-pearl bg-opacity-75 placeholder:    font-semibold'
                   // className='input input-bordered'
                 />
-                {errors.massage && (
+                {errors.message && (
                   <p className='text-red-500 mt-2'>
                     You need show a cuse to decline
                   </p>

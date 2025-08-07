@@ -4,12 +4,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { imageUpload } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
-import { postPublisherInfo } from '../../api/userApi';
 import { useOutletContext } from 'react-router-dom';
 import { StatusCodes } from 'http-status-toolkit';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { IPublisher } from '../../../interface';
 
 type FormData = {
   publisher: string;

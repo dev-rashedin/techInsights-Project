@@ -91,3 +91,23 @@ export interface ButtonProps {
   type: string;
   onClick?: () => void;
 }
+
+
+export interface DeclinedModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  handleDeclineBtn: (id: string) => void;
+  id: string;
+}
+
+export interface MessageModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  id: string;
+}
+
+export interface ProfileModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  userData: any
+}

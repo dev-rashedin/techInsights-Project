@@ -6,13 +6,12 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-  Legend,
   Tooltip,
 } from 'recharts';
 
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
 
-const getPath = (x, y, width, height) => {
+const getPath = (x: number, y: number, width: number, height: number) => {
   return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${
     y + height / 3
   }
@@ -23,14 +22,23 @@ const getPath = (x, y, width, height) => {
   Z`;
 };
 
-const TriangleBar = (props) => {
+const TriangleBar = (props: { fill: any; x: any; y: any; width: any; height: any; }) => {
   const { fill, x, y, width, height } = props;
 
   return <path d={getPath(x, y, width, height)} stroke='none' fill={fill} />;
 };
 
 
-const CustomShapeBarChart = ({ articleByPublisher: data }) => {
+interface ArticleByPublisher {
+  publisher: string;
+  count: number;
+}
+
+interface CustomShapeBarChartProps {
+  articleByPublisher: ArticleByPublisher[];
+}
+
+const CustomShapeBarChart = ({ articleByPublisher: data }: CustomShapeBarChartProps) => {
   
   return (
     <ResponsiveContainer width='100%' height='100%'>
@@ -51,10 +59,10 @@ const CustomShapeBarChart = ({ articleByPublisher: data }) => {
         <Bar
           dataKey='count'
           fill='#8884d8'
-          shape={<TriangleBar />}
+          shape={<TriangleBar fill={undefined} x={undefined} y={undefined} width={undefined} height={undefined} />}
           label={{ position: 'top' }}
         >
-          {data.map((entry, index) => (
+          {data.map((_entry: any, index: number) => (
             <Cell key={`cell-${index}`} fill={colors[index % 5]} />
           ))}
         </Bar>

@@ -20,7 +20,7 @@ const AdminArticles = () => {
   const [search, setSearch] = useState('');
   const [searchText, setSearchText] = useState('');
 
-  const { isActive, handleToggle } = useOutletContext();
+  const { isActive, handleToggle } : { isActive: boolean; handleToggle: () => void } = useOutletContext();
 
   // fetching article count
   useEffect(() => {

@@ -1,11 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import PageTitle from '../../components/PageTitle';
-import { Calendar } from 'react-date-range';
 import { FaUserAlt, FaBookReader } from 'react-icons/fa';
-import { BsFillCartPlusFill, BsFillHouseDoorFill } from 'react-icons/bs';
 import { IoDocumentsSharp } from 'react-icons/io5';
 import { MdOutlinePublishedWithChanges } from 'react-icons/md';
-import useAxiosSecure from './../../hooks/useAxiosSecure';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorMessage from '../../components/ErrorMessage';
@@ -20,7 +17,7 @@ import { useOutletContext } from 'react-router-dom';
 const Statistics = () => {
   const { user } = useAuth();
 
-  const {isActive, handleToggle} = useOutletContext()
+  const {isActive, handleToggle} : {isActive: boolean, handleToggle: () => void} = useOutletContext()
 
   const axiosSecure = useAxiosSecure();
   // Fetch Admin Stat Data here
@@ -43,7 +40,6 @@ const Statistics = () => {
   const {
     totalUsers,
     totalArticles,
-    totalPublishers,
     totalViews,
     publishedArticle,
     articleByPublisher,
@@ -58,7 +54,7 @@ const Statistics = () => {
   if (isError) return <ErrorMessage error={error} />;
 
   return (
-    <div onClick={isActive && handleToggle}>
+    <div onClick={isActive ? handleToggle : undefined}>
       <Helmet>
         <title>Tech Insights || Admin - Statistics</title>
       </Helmet>

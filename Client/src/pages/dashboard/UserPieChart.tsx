@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import {
   PieChart,
   Pie,
@@ -21,6 +20,14 @@ const renderCustomizedLabel = ({
   outerRadius,
   percent,
   index,
+}: {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+  index: number;
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -40,9 +47,9 @@ const renderCustomizedLabel = ({
 };
 
 
-const UserPieChart = ({ subscriptionCount }) => {
+const UserPieChart = ({ subscriptionCount} : {subscriptionCount: any}) => {
 
-    const data = subscriptionCount.map(({ subscriptionType, count }) => ({
+    const data = subscriptionCount.map(({ subscriptionType, count } : {subscriptionType: string, count: number}) => ({
       name:
         subscriptionType.slice(0, 1).toUpperCase() + subscriptionType.slice(1),
       value: count,
@@ -62,7 +69,7 @@ const UserPieChart = ({ subscriptionCount }) => {
           fill='#8884d8'
           dataKey='value'
         >
-          {data.map((entry, index) => (
+          {data.map((_entry: any, index: number) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
@@ -73,7 +80,5 @@ const UserPieChart = ({ subscriptionCount }) => {
   );
 }
 
-UserPieChart.propTypes = {
 
-}
 export default UserPieChart

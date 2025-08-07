@@ -1,36 +1,31 @@
-import PropTypes from 'prop-types';
 import {
   Dialog,
   Transition,
   TransitionChild,
   DialogPanel,
   DialogTitle,
-  Description,
 } from '@headlessui/react';
 import { Fragment } from 'react';
 import { MdClose } from 'react-icons/md';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import useAuth from './../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 import { imageUpload } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
 
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { ProfileModalProps } from '../../../interface';
 
-/**
- *  
-  <li>
-<button onClick={() => setIsOpen(true)}>Profile</button>
-<ProfileModal isOpen={isOpen} closeModal={closeModal} />
-</li>
+type FormData = {
+  name: string;
+  email: string;
+};
 
- */
-
-const ProfileModal = ({ isOpen, closeModal, userData }) => {
-  const [imageFile, setImageFile] = useState(null);
+const ProfileModal = ({ isOpen, closeModal, userData }: ProfileModalProps) => {
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const axiosSecure = useAxiosSecure()
 
   const {
@@ -49,10 +44,10 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
   // Form submission handler
-  const handleRegister = async ({ name }) => {
+  const handleRegister = async ({ name } : { name: string }) => {
     try {
       setLoading(true);
 
@@ -75,7 +70,7 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
          toast.success('Your profile is updated successfully');
          closeModal;
        }
-     } catch (error) {
+     } catch (error : any) {
        toast.error(error.message);
        console.error(error);
      }
@@ -85,7 +80,7 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
       } else {
         toast.warn('Please update your info');
       }
-    } catch (err) {
+    } catch (err : any) {
       //console.log('Error:', err);
       toast.error(err.message);
     } finally {
@@ -94,8 +89,13 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
   };
 
   // Handle file input changes
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+
+  
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
     setImageFile(file);
   };
 
@@ -106,10 +106,20 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
       const currentPassword = prompt('Enter your current password');
       //console.log(currentPassword)
 
-      await updateUserPass(user, currentPassword);
-      setLoading(false);
-      toast.success('Password reset successful');
-    } catch (error) {
+      if (currentPassword === null) {
+        setLoading(false);
+        toast.warn('Password reset cancelled.');
+        return;
+      }
+
+      if (user) {
+        await updateUserPass(user, currentPassword);
+        setLoading(false);
+        toast.success('Password reset successful');
+      } else {
+        toast.error('User not found. Please log in again.');
+      }
+    } catch (error : any) {
       console.error(error);
       toast.error(error.message);
     } finally {
@@ -122,7 +132,7 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
     try {
       await resetUserPass(email);
       toast.success('Please check your email');
-    } catch (error) {
+    } catch (error : any) {
       toast.error(error.message);
       console.error(error);
     } finally {
@@ -172,7 +182,7 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
                   className='input input-bordered'
                 />
                 {errors.name && (
-                  <p className='text-red-500 mt-2'>{errors.name.message}</p>
+                  <p className='text-red-500 mt-2'>{errors.name.message as string}</p>
                 )}
               </div>
 
@@ -187,7 +197,7 @@ const ProfileModal = ({ isOpen, closeModal, userData }) => {
                   className='input input-bordered'
                 />
                 {errors.email && (
-                  <p className='text-red-500 mt-2'>{errors.email.message}</p>
+                  <p className='text-red-500 mt-2'>{errors.email.message as string}</p>
                 )}
               </div>
               {/* photo */}

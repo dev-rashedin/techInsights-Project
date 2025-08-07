@@ -12,8 +12,9 @@ import { MdClose } from 'react-icons/md';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import LoadingSpinner from '../LoadingSpinner';
 import ErrorMessage from '../ErrorMessage';
+import { MessageModalProps } from '../../../interface';
 
-const MessageModal = ({ isOpen, closeModal, id }) =>
+const MessageModal = ({ isOpen, closeModal, id }: MessageModalProps) =>
 {
 
   const axiosSecure = useAxiosSecure()
@@ -31,10 +32,7 @@ const MessageModal = ({ isOpen, closeModal, id }) =>
     queryFn: async () => {
       const res = await axiosSecure.get(`/message/${id}`);
       return res.data;
-    },
-    onError: (error) => {
-      console.error('Error fetching declined message:', error);
-    },
+    }
   });
 
   console.log(message)

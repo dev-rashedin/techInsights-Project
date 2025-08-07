@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from './useAxiosSecure';
 
 const useLoadArticles = (
-  status: 'approved',
+  status: 'approved' | '',
   page : number,
   size : number,
   filter : string,
