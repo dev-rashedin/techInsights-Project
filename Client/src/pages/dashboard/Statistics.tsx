@@ -74,11 +74,11 @@ const Statistics = () => {
 
       <div className='mt-4'>
         {/* small cards */}
-        <div className='mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        <div className='mb-12 p-4 grid gap-y-10 gap-x-6 xl:gap-x-12 md:grid-cols-2 xl:grid-cols-4 justify-items-center'>
           {/* total users*/}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-slate-100 text-gray-700 shadow-md'>
+          <div className='dashboardSmallCard'>
             <div
-              className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
+              className={` bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
             >
               <FaUserAlt className='w-6 h-6 text-white' />
             </div>
@@ -92,7 +92,7 @@ const Statistics = () => {
             </div>
           </div>
           {/* total article*/}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-slate-100 text-gray-700 shadow-md'>
+          <div className='dashboardSmallCard'>
             <div
               className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-orange-600 to-orange-400 text-white shadow-orange-500/40`}
             >
@@ -109,7 +109,7 @@ const Statistics = () => {
           </div>
 
           {/* published article */}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-slate-100 text-gray-700 shadow-md'>
+          <div className='dashboardSmallCard'>
             <div
               className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-blue-600 to-blue-400 text-white shadow-blue-500/40`}
             >
@@ -125,7 +125,7 @@ const Statistics = () => {
             </div>
           </div>
           {/* Total Rooms */}
-          <div className='relative flex flex-col bg-clip-border rounded-xl bg-slate-100 text-gray-700 shadow-md'>
+          <div className='dashboardSmallCard'>
             <div
               className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-pink-600 to-pink-400 text-white shadow-pink-500/40`}
             >
