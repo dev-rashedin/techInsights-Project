@@ -55,12 +55,16 @@ const Register = () => {
     resolver: zodResolver(schema),
   });
 
+  
+
   // Form submission handler
   const handleRegister = async ({ name, email, password } : { name: string; email: string; password: string }) => {
     try {
       setLoading(true);
 
       const image_url = await imageUpload(imageFile!);
+      console.log(image_url);
+      
 
       // return console.log(name, email, password, image_url);
 
@@ -108,7 +112,7 @@ const Register = () => {
 
         <form
           onSubmit={handleSubmit(handleRegister)}
-          className='w-3/4 lg:w-1/2 mx-auto space-y-2'
+          className='w-3/4 lg:w-1/2 max-w-xl mx-auto space-y-2'
         >
           <div className='form-control'>
             <input
@@ -133,10 +137,13 @@ const Register = () => {
               type='file'
               id='photo'
               accept='image/*'
+              {...register('photo')}
               onChange={handleImageChange}
             />
             {errors.photo && (
-              <p className='text-red-500 mt-2'>{errors.photo?.message as string}</p>
+              <p className='text-red-500 mt-2'>
+                {errors.photo?.message as string}
+              </p>
             )}
           </div>
           <div className='form-control'>

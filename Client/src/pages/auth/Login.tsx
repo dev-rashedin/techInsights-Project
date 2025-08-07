@@ -57,7 +57,7 @@ const Login = () => {
         <LoginRegisterTitle title='Please Sign In' />
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='w-3/4 lg:w-1/2 mx-auto'
+          className='w-3/4 lg:w-1/2 max-w-xl mx-auto'
         >
           <div className='form-control'>
             <label className='label'>
