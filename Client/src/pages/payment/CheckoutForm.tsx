@@ -118,7 +118,7 @@ const CheckoutForm = ({ price, validationTime, subscriptionType } : {price: numb
   return (
     <div>
       <form
-        className='mx-4 md:w-3/4 md:mx-auto xl:w-1/2 border-2 border-green-lantern px-4 py-12 rounded-lg border-dotted'
+        className='mx-4 md:w-3/4 md:mx-auto xl:w-1/2 border-2 border-green-lantern px-4 py-12 rounded-lg border-dotted '
         onSubmit={handleSubmit}
       >
         <CardElement
@@ -155,7 +155,7 @@ const CheckoutForm = ({ price, validationTime, subscriptionType } : {price: numb
         </button>
 
         {/* show error message or transactionId */}
-      
+
         {confirmPaymentError && (
           <p className='mt-12 text-red-600 font-semibold'>
             {confirmPaymentError}

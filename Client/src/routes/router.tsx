@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Subscription />
-          </PrivateRoute>
+           </PrivateRoute>
         ),
       },
       {

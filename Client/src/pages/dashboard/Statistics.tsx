@@ -4,7 +4,6 @@ import { IoDocumentsSharp } from 'react-icons/io5';
 import { MdOutlinePublishedWithChanges } from 'react-icons/md';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorMessage from '../../components/ErrorMessage';
 import useAuth from '../../hooks/useAuth';
 import { FaHandsClapping } from 'react-icons/fa6';
@@ -12,6 +11,7 @@ import './dashboardStyle.css';
 import CustomShapeBarChart from './CustomShapeBarChart';
 import UserPieChart from './UserPieChart';
 import { useOutletContext } from 'react-router-dom';
+import BannerSkeleton2 from './../../components/BannerSkeleton2';
 
 const Statistics = () => {
   const { user } = useAuth();
@@ -51,7 +51,7 @@ const Statistics = () => {
   // console.log(statData)
 
   // handling loading and error
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <BannerSkeleton2 />;
   if (isError) return <ErrorMessage error={error} />;
 
   return (

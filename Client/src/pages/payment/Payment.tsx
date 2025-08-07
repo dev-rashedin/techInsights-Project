@@ -18,11 +18,15 @@ const Payment = () => {
   const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
   return (
-    <div className='text-center mx-2'>
+    <div className='text-center mx-2 mt-32'>
       <PageTitle title={`Buy premium membership`} />
       <div>
         <Elements stripe={stripePromise}>
-          <CheckoutForm price={price} validationTime={validationTime} subscriptionType={subscriptionType} />
+          <CheckoutForm
+            price={price}
+            validationTime={validationTime}
+            subscriptionType={subscriptionType}
+          />
         </Elements>
       </div>
     </div>

@@ -7,31 +7,36 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 
 const Subscription = () => {
-  const [userData, isLoading, isError, error] = useLoadUser();
+  const [userData,  isError, error] = useLoadUser();
 
-  if (isLoading) return <LoadingSpinner />
+  // if (isLoading) return <LoadingSpinner />
   if(isError) return <ErrorMessage error={error}/>
   
 // calculate current time and premium token time
-  const currentTimeInMilliseconds = Math.floor(new Date().getTime());
+ const currentTimeInMilliseconds = Date.now();
 
-   const secondsRemaining = differenceInSeconds(
-     userData.premiumToken * 1000,
-     currentTimeInMilliseconds
-   );
+ let formattedExpirationDate = null;
 
-   const expirationDate = addSeconds(new Date(), secondsRemaining);
+ if (userData?.premiumToken) {
+   const premiumTime = Number(userData.premiumToken) * 1000;
 
-   // Format the expiration date
-   const formattedExpirationDate = format(
-     expirationDate,
-     '::::: d-MM-yyyy ::::: HH:mm:ss'
-   );
-  console.log(currentTimeInMilliseconds)
+   if (!isNaN(premiumTime)) {
+     const secondsRemaining = differenceInSeconds(
+       premiumTime,
+       currentTimeInMilliseconds
+     );
+     const expirationDate = addSeconds(new Date(), secondsRemaining);
+
+     if (!isNaN(expirationDate.getTime())) {
+       formattedExpirationDate = format(expirationDate, 'd-MM-yyyy HH:mm:ss');
+     }
+   }
+ }
   
+  // return <p>Subscription page</p>
   
   return (
-    <div className='max-w-7xl mx-auto my-4 xl:my-8'>
+    <div className='max-w-7xl  mx-auto my-4 xl:my-8'>
       <Helmet>
         <title>Tech Insights || Subscription</title>
       </Helmet>
