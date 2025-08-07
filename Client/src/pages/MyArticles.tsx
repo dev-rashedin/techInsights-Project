@@ -12,11 +12,12 @@ import Swal from 'sweetalert2';
 import {FaEye } from 'react-icons/fa';
 import { useState } from 'react';
 import MessageModal from '../components/modals/MessageModal';
+import { IArticle } from '../../interface';
 
 const MyArticles = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-   const [currentId, setCurrentId] = useState(null);
+   const [currentId, setCurrentId] = useState<string | null>(null);
 
   const axiosSecure = useAxiosSecure();
 
@@ -34,12 +35,9 @@ const MyArticles = () => {
       const res = await axiosSecure.get(`/my-articles/${user?.email}`);
       return res.data;
     },
-    onError: (error) => {
-      console.error('Error fetching articles:', error);
-    },
   });
 
-  const closeModal = (id) => {
+  const closeModal = (id : string) => {
 setCurrentId(id)
 setIsOpen(!isOpen)
   }
@@ -48,7 +46,7 @@ setIsOpen(!isOpen)
   if (isError) return <ErrorMessage error={error} />;
 
   // handle delete btn
-  const handleDeleteArticle = async (id) => {
+  const handleDeleteArticle = async (id : string) => {
     try {
       Swal.fire({
         title: 'Are you sure?',
@@ -68,7 +66,7 @@ setIsOpen(!isOpen)
           }
         }
       });
-    } catch (error) {
+    } catch (error : any) {
       toast.error(error.message);
       console.error(error);
     }
@@ -96,7 +94,7 @@ setIsOpen(!isOpen)
             </tr>
           </thead>
           <tbody>
-            {articles?.map((article, index) => (
+            {articles?.map((article : IArticle, index : number) => (
               <tr className='border-b border-green-lantern' key={article._id}>
                 <td className='border border-green-lantern text-sm font-semibold'>
                   {index + 1}
@@ -132,7 +130,7 @@ setIsOpen(!isOpen)
                           article._id && (
                           <MessageModal
                             isOpen={isOpen}
-                            closeModal={closeModal}
+                            closeModal={() => setIsOpen(false)}
                             id={currentId}
                           />
                         )}

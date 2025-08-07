@@ -3,11 +3,16 @@ import useLoadArticles from '../hooks/useLoadArticles';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import ArticleCard from '../components/ArticleCard';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { axiosApi } from '../api/axiosApi';
+import { IArticle } from '../../interface';
 
 const AllArticles = () => {
-  const [articleCount, setArticleCount] = useState(null);
+  interface IArticleCount {
+    approvedArticles: number;
+  }
+  
+  const [articleCount, setArticleCount] = useState<IArticleCount | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -46,7 +51,7 @@ const AllArticles = () => {
   // console.log(articleCount)
 
   const numberOfPages =
-    Math.ceil(articleCount?.approvedArticles / itemsPerPage) || 0;
+    Math.ceil((articleCount?.approvedArticles ?? 0) / itemsPerPage) || 0;
   // console.log(numberOfPages);
 
   const pages = [...Array(numberOfPages).keys()];
@@ -54,7 +59,7 @@ const AllArticles = () => {
   // console.log(pages)
 
   // handle search
-  const handleSubmit = (e) => {
+  const handleSubmit = (e : React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearch(searchText);
   };
@@ -67,7 +72,7 @@ const AllArticles = () => {
   };
 
   // handle current page
-  const handleCurrentPage = (value) => {
+  const handleCurrentPage = (value: SetStateAction<number>) => {
     setCurrentPage(value);
   };
 
@@ -170,7 +175,7 @@ const AllArticles = () => {
       </div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 mx-8 md:mx-4 xl:mx-28'>
-        {articles.map((article) => (
+        {articles.map((article : IArticle) => (
           <ArticleCard key={article._id} article={article} refetch={refetch} />
         ))}
       </div>

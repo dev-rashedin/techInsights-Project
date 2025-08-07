@@ -2,12 +2,12 @@ import { Helmet } from 'react-helmet-async';
 import PageTitle from '../components/PageTitle';
 import { Link } from 'react-router-dom';
 import useLoadUser from '../hooks/useLoadUser';
-import { addSeconds, differenceInCalendarDays, differenceInSeconds, format } from 'date-fns';
-import LoadingSpinner from './../components/LoadingSpinner';
-import ErrorMessage from './../components/ErrorMessage';
+import { addSeconds, differenceInSeconds, format } from 'date-fns';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorMessage from '../components/ErrorMessage';
 
 const Subscription = () => {
-  const [userData, refetch, isLoading, isError, error] = useLoadUser();
+  const [userData, isLoading, isError, error] = useLoadUser();
 
   if (isLoading) return <LoadingSpinner />
   if(isError) return <ErrorMessage error={error}/>

@@ -6,6 +6,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import ArticleCard from "../components/ArticleCard";
 import { useQuery } from "@tanstack/react-query";
 import { axiosApi } from "../api/axiosApi";
+import { IArticle } from "../../interface";
 
 
 const PremiumArticles = () => {
@@ -41,7 +42,7 @@ const PremiumArticles = () => {
       <PageTitle title='Premium Articles' />
 
       <div className='grid grid-cols-1 mx:grid-cols-2 lg:grid-cols-3 gap-4 mx-8 md:mx-4'>
-        {premiumArticles.map((article) => (
+        {premiumArticles.map((article : IArticle) => (
           <ArticleCard key={article._id} article={article} refetch={refetch} />
         ))}
       </div>
