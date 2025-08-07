@@ -11,6 +11,10 @@ import { imageUpload } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
 import { createOrUpdateUser } from '../../api/userApi';
 import swalAlert from '../../api/swalAlert';
+import { toast } from 'react-toastify';
+
+
+type FormData = z.infer<typeof schema>;
 
 // Zod schema for validation
 const schema = z.object({
@@ -28,11 +32,16 @@ const schema = z.object({
       /(?=.*[!@#$%^&*(),.?":{}|<>])/,
       'Password must contain at least one special character'
     ),
+  photo: z
+    .any()
+    .refine((file) => file?.[0] instanceof File, {
+      message: 'Photo is required',
+    }),
 });
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
   const { createUser, updateUserProfile, loading, setLoading } = useAuth();
@@ -42,16 +51,16 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
   // Form submission handler
-  const handleRegister = async ({ name, email, password }) => {
+  const handleRegister = async ({ name, email, password } : { name: string; email: string; password: string }) => {
     try {
       setLoading(true);
 
-      const image_url = await imageUpload(imageFile);
+      const image_url = await imageUpload(imageFile!);
 
       // return console.log(name, email, password, image_url);
 
@@ -78,7 +87,7 @@ const Register = () => {
 
       reset();
       navigate('/');
-    } catch (err) {
+    } catch (err : any) {
       //console.log('Error:', err);
       toast.error(err.message);
     } finally {
@@ -87,8 +96,11 @@ const Register = () => {
   };
 
   // Handle file input changes
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+     const files = e.target.files;
+     if (!files || files.length === 0) return;
+
+     const file = files[0];
     setImageFile(file);
   };
 
@@ -130,7 +142,7 @@ const Register = () => {
               onChange={handleImageChange}
             />
             {errors.photo && (
-              <p className='text-red-500 mt-2'>{errors.photo.message}</p>
+              <p className='text-red-500 mt-2'>{errors.photo?.message as string}</p>
             )}
           </div>
           <div className='form-control'>
