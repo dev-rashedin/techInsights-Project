@@ -12,8 +12,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { toast } from 'react-toastify';
-import { createOrUpdateUser } from '../../api/userApi';
 import swalAlert from '../../api/swalAlert';
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,15 +33,15 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>();
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmit = async ({ email, password } : { email: string; password: string }) => {
     try {
       setLoading(true);
       await logInUser(email, password);
       swalAlert('success', 'Sign Up Successful', 'top-right');
       navigate(from);
-    } catch (err) {
+    } catch (err : any ) {
       //console.log(err);
       toast.error(err.message);
       setLoading(false);

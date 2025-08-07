@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo3.png';
 
-const LoginRegisterTitle = ({ title }) => {
+const LoginRegisterTitle = ({ title } : {title: string}) => {
   return (
     <div>
       <Link to='/'>
@@ -15,8 +14,5 @@ const LoginRegisterTitle = ({ title }) => {
   );
 };
 
-LoginRegisterTitle.propTypes = {
-  title: PropTypes.string.isRequired,
-};
 
 export default LoginRegisterTitle;

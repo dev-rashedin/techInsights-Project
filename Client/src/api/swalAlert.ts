@@ -1,21 +1,12 @@
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertIcon, SweetAlertPosition } from 'sweetalert2';
 
-type SwalIcon = 'success' | 'error' | 'warning' | 'info' | 'question';
-type SwalPosition =
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'center'
-  | 'center-start'
-  | 'center-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end';
+
+
 
 const swalAlert = (
-  icon: SwalIcon,
+  icon: SweetAlertIcon,
   title: string,
-  position: SwalPosition = 'center'
+  position: SweetAlertPosition = 'center'
 ) => {
   Swal.fire({
     position,

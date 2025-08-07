@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 
 // create a user to the database
-export const createOrUpdateUser = async (userInfo) => {
+export const createOrUpdateUser = async (userInfo : any) => {
   try {
     const res = await axiosApi.put('/users', userInfo);
 
@@ -18,7 +18,7 @@ export const createOrUpdateUser = async (userInfo) => {
       toast.success('User info updated successfully');
     }
     return res;
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     swalAlert('error', error.message);
     throw error;
@@ -26,7 +26,7 @@ export const createOrUpdateUser = async (userInfo) => {
 };
 
 // post publisher info
-export const postPublisherInfo = async (publisherData) => {
+export const postPublisherInfo = async (publisherData : any) => {
   try {
     //console.log(publisherData)
 
@@ -37,7 +37,7 @@ export const postPublisherInfo = async (publisherData) => {
     if (res.data.insertedId) {
       swalAlert('success', 'Publisher created successfully');
     }
-  } catch (error) {
+  } catch (error : any) {
     console.error(error);
     swalAlert('error', error.message);
   }
