@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo3.png';
 import { toast } from 'react-toastify';
 
-const Sidebar = ({isActive, handleToggle }) => {
+const Sidebar = ({isActive, handleToggle } : {isActive: boolean, handleToggle: () => void}) => {
   // const [isActive, setActive] = useState(false);
   const navigate = useNavigate();
   const { logOutUser } = useAuth();
@@ -29,8 +29,8 @@ const Sidebar = ({isActive, handleToggle }) => {
       await logOutUser();
       toast.warn('Logout successful');
       navigate('/');
-    } catch (error) {
-      console.l(error);
+    } catch (error: any) {
+      console.error(error);
       toast.error(error.message);
     }
   };
