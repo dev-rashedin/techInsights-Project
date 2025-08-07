@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useState } from 'react';
 
 // Image upload
 export const imageUpload = async ( image : File) : Promise<string> => {
@@ -23,4 +24,18 @@ export function getASecureRandomPassword(): string {
   }
   return password;
 }
+
+
+
+export const useImageFile = () => {
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    setImageFile(files[0]);
+  };
+
+  return { imageFile, handleImageChange, setImageFile };
+};
 

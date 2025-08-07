@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useAuth from '../../hooks/useAuth';
 import LoginRegisterTitle from '../../components/LoginRegisterTitle';
-import { imageUpload } from '../../api/utils';
+import { imageUpload, useImageFile } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
 import { createOrUpdateUser } from '../../api/userApi';
 import swalAlert from '../../api/swalAlert';
@@ -41,7 +41,7 @@ const schema = z.object({
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+    const { imageFile, handleImageChange } = useImageFile();
   const navigate = useNavigate();
 
   const { createUser, updateUserProfile, loading, setLoading } = useAuth();
@@ -96,13 +96,7 @@ const Register = () => {
   };
 
   // Handle file input changes
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     const files = e.target.files;
-     if (!files || files.length === 0) return;
-
-     const file = files[0];
-    setImageFile(file);
-  };
+ 
 
   return (
     <div className='min-h-screen flex flex-col justify-center'>

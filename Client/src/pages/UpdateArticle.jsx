@@ -9,12 +9,12 @@ import { axiosApi } from '../api/axiosApi';
 import { useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { useState } from 'react';
-import { imageUpload } from '../api/utils';
+import { imageUpload, useImageFile } from '../api/utils';
 import swalAlert from '../api/swalAlert';
 import { toast } from 'react-toastify';
 
 const UpdateArticle = () => {
-  const [imageFile, setImageFile] = useState(null);
+   const { imageFile, handleImageChange } = useImageFile();
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedPublisher, setSelectedPublisher] = useState(null);
 
@@ -27,7 +27,6 @@ const UpdateArticle = () => {
   // fetching article data
   const {
     data: article = {},
-    refetch,
     isLoading,
     isError,
     error,
@@ -61,7 +60,6 @@ const UpdateArticle = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm();
 
@@ -126,10 +124,6 @@ const UpdateArticle = () => {
   };
 
   // Handle file input changes
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImageFile(file);
-  };
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <ErrorMessage error={error} />;

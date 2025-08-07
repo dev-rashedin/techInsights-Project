@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 
 import useAuth from '../../hooks/useAuth';
 
-import { imageUpload } from '../../api/utils';
+import { imageUpload, useImageFile } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
 
 import { toast } from 'react-toastify';
@@ -25,7 +25,7 @@ type FormData = {
 };
 
 const ProfileModal = ({ isOpen, closeModal, userData }: ProfileModalProps) => {
-  const [imageFile, setImageFile] = useState<File | null>(null);
+   const { imageFile, handleImageChange } = useImageFile();
   const axiosSecure = useAxiosSecure()
 
   const {
@@ -91,13 +91,6 @@ const ProfileModal = ({ isOpen, closeModal, userData }: ProfileModalProps) => {
   // Handle file input changes
 
   
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    const file = files[0];
-    setImageFile(file);
-  };
 
   const handleResetPass = async () => {
     setLoading(true);

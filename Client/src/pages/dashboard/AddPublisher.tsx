@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import PageTitle from '../../components/PageTitle';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { imageUpload } from '../../api/utils';
+import { imageUpload, useImageFile } from '../../api/utils';
 import { ImSpinner9 } from 'react-icons/im';
 import { useOutletContext } from 'react-router-dom';
 import { StatusCodes } from 'http-status-toolkit';
@@ -15,7 +15,7 @@ type FormData = {
 }
 
 const AddPublisher = () => {
-  const [imageFile, setImageFile] = useState<File | null>(null);
+   const { imageFile, handleImageChange } = useImageFile();
   const [loading, setLoading] = useState(false);
   const axiosSecure = useAxiosSecure();
 
@@ -54,14 +54,6 @@ const AddPublisher = () => {
     }
   };
 
-  // Handle file input changes
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    const file = files[0];
-    setImageFile(file);
-  };
 
   return (
     <div 

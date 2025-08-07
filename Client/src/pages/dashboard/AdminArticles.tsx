@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import PageTitle from '../../components/PageTitle';
-import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ErrorMessage from '../../components/ErrorMessage';
 import AdminArticleCard from '../../components/AdminArticleCard';
@@ -8,9 +7,10 @@ import useLoadArticles from '../../hooks/useLoadArticles';
 import { useEffect, useState } from 'react';
 import { axiosApi } from '../../api/axiosApi';
 import { useOutletContext } from 'react-router-dom';
+import { IArticle } from '../../../interface';
 
 const AdminArticles = () => {
-  const [articleCount, setArticleCount] = useState(null);
+  const [articleCount, setArticleCount] = useState<number | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -56,14 +56,14 @@ const AdminArticles = () => {
   // console.log(articles);
 
   // calculating pages
-  const pageNumbers = Math.ceil(articleCount?.allArticles / itemsPerPage) || 0;
+  const pageNumbers = Math.ceil((articleCount ?? 0) / itemsPerPage) || 0;
   // console.log(pageNumbers)
 
   const pages = [...Array(pageNumbers).keys()];
   // console.log(pages)
 
   // handle search
-  const handleSubmit = (e) => {
+  const handleSubmit = (e : React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearch(searchText);
   };
@@ -76,7 +76,7 @@ const AdminArticles = () => {
   };
 
   // handle current page
-  const handleCurrentPage = (value) => {
+  const handleCurrentPage = (value : number) => {
     setCurrentPage(value);
   };
 
@@ -96,7 +96,7 @@ const AdminArticles = () => {
   if (isError) return <ErrorMessage error={error} />;
 
   return (
-    <div onClick={isActive && handleToggle}>
+    <div onClick={isActive ? handleToggle : undefined}>
       <Helmet>
         <title>Tech Insights || All Articles</title>
       </Helmet>
@@ -175,7 +175,7 @@ const AdminArticles = () => {
 
       {/* loading all articles */}
       <div className='grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-28 mx-4 md:mx-10 lg:mx-28 xl:mx-8 mt-20'>
-        {articles?.map((article) => (
+        {articles?.map((article : IArticle) => (
           <AdminArticleCard
             key={article._id}
             article={article}

@@ -3,48 +3,54 @@ import PageTitle from '../components/PageTitle';
 import { useQuery } from '@tanstack/react-query';
 import { axiosApi } from '../api/axiosApi';
 import { useForm } from 'react-hook-form';
-import Select from 'react-select';
+import Select, { MultiValue } from 'react-select';
 import { useState } from 'react';
 import { imageUpload } from '../api/utils';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import useAuth from '../hooks/useAuth';
 import { StatusCodes } from 'http-status-toolkit';
+import { IPublisher } from '../../interface';
+
+type TagOption = {
+  value: string;
+  label: string;
+};
+
+interface FormData {
+  title: string;
+  image: FileList;
+  description: string;
+  publisher: string;
+}
 
 const AddArticles = () => {
-  const [imageFile, setImageFile] = useState(null);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [selectedPublisher, setSelectedPublisher] = useState(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [selectedTags, setSelectedTags] = useState<TagOption[]>([]);
+  const [selectedPublisher, setSelectedPublisher] = useState<string | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   const axiosSecure = useAxiosSecure();
+  const auth = useAuth();
 
   const {
     register,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
-  const { user } = useAuth();
-
-  // getting publisher data
-  const { data: publisherData = [] } = useQuery({
+  const { data: publisherData = [] } = useQuery<IPublisher[]>({
     queryKey: ['publishers'],
-
     queryFn: async () => {
       const { data } = await axiosApi.get('/publishers');
-
       return data;
-    },
-    onError: (error) => {
-      //console.log('Error fetching user:', error);
     },
   });
 
-  // static tags options
-  const tagsOptions = [
+  const tagsOptions: TagOption[] = [
     { value: 'AI', label: 'AI' },
     { value: 'Cybersecurity', label: 'Cybersecurity' },
     { value: 'Software', label: 'Software' },
@@ -52,41 +58,52 @@ const AddArticles = () => {
     { value: 'Programming', label: 'Programming' },
   ];
 
-  // Handle form submission
-  const handlePostArticle = async (data) => {
+  const handlePostArticle = async (data: FormData) => {
     const { title, description } = data;
 
-    data.tags = selectedTags.map((tag) => tag.value);
+    if (selectedTags.length === 0) {
+      toast.error('Please select at least one tag');
+      return;
+    }
+
+    if (!selectedPublisher) {
+      toast.error('Please select a publisher');
+      return;
+    }
+
+    if (!imageFile) {
+      toast.error('Please upload an image');
+      return;
+    }
 
     const image_url = await imageUpload(imageFile);
 
-    // Prepare formData
     const articleData = {
       title,
       description,
       image_url,
-      tags: data.tags,
+      tags: selectedTags.map((tag) => tag.value),
       publisher: selectedPublisher,
-      posted_by: user?.email.split('.')[0],
+      posted_by: auth.user?.email?.split('@')[0],
       posted_time: new Date().toLocaleDateString(),
-      writers_email: user?.email,
+      writers_email: auth.user?.email,
       view_count: 0,
       isPremium: 'no',
       status: 'pending',
     };
 
-
     try {
       setLoading(true);
       const res = await axiosSecure.post('/articles', articleData);
-      console.log(res)
 
       if (res.status === StatusCodes.CREATED) {
         toast.success('Article posted successfully');
         reset();
-        setLoading(false);
+        setSelectedTags([]);
+        setSelectedPublisher(null);
+        setImageFile(null);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
       console.error(error);
     } finally {
@@ -94,21 +111,23 @@ const AddArticles = () => {
     }
   };
 
-  // Handle file input changes
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImageFile(file);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) setImageFile(file);
   };
 
   return (
-    <div className='h-[80vh]  flex flex-col justify-center items-center'>
+    <div className='h-[80vh] flex flex-col justify-center items-center'>
       <Helmet>
         <title>Tech Insights || Add Articles</title>
       </Helmet>
       <PageTitle title='Add Articles' />
-      {/* form */}
-      <div className='border-2 border-dotted border-faded-pearl p-4 md:p-8 rounded-xl mx-8 lg:w-1/2 lg:mx-auto shadow-2xl '>
-        <form onSubmit={handleSubmit(handlePostArticle)} className='w-80 md:w-full space-y-2 xl:space-y-3'>
+
+      <div className='border-2 border-dotted border-faded-pearl p-4 md:p-8 rounded-xl mx-8 lg:w-1/2 lg:mx-auto shadow-2xl'>
+        <form
+          onSubmit={handleSubmit(handlePostArticle)}
+          className='w-80 md:w-full space-y-2 xl:space-y-3'
+        >
           {/* Title */}
           <div className='form-control'>
             <input
@@ -126,13 +145,12 @@ const AddArticles = () => {
           <div className='flex justify-between items-center py-1 bg-white rounded-md'>
             <label
               htmlFor='image'
-              className='block mb-2 pt-2 pl-[14px] min-w-40  text-gray-600'
+              className='block mb-2 pt-2 pl-[14px] min-w-40 text-gray-600'
             >
               Select Image:
             </label>
             <input
               type='file'
-              required
               {...register('image', { required: 'Image is required' })}
               accept='image/*'
               id='image'
@@ -143,15 +161,13 @@ const AddArticles = () => {
             )}
           </div>
 
-          {/* Publisher & tags Dropdown */}
-
+          {/* Tags and Publisher */}
           <div className='flex flex-col md:flex-row gap-4 pt-[1px]'>
-            {/* Tags Multi-Select */}
             <div className='form-control md:w-2/3'>
               <Select
                 options={tagsOptions}
                 isMulti
-                onChange={setSelectedTags}
+                onChange={(val) => setSelectedTags(val as TagOption[])}
                 placeholder='Select Tags'
                 styles={{
                   control: (base) => ({
@@ -161,7 +177,7 @@ const AddArticles = () => {
                   }),
                   placeholder: (base) => ({
                     ...base,
-                    color: 'gray', // Custom placeholder color
+                    color: 'gray',
                   }),
                 }}
               />
@@ -171,7 +187,7 @@ const AddArticles = () => {
                 </p>
               )}
             </div>
-            {/* publishers */}
+
             <div className='form-control'>
               <select
                 {...register('publisher', {
@@ -181,7 +197,7 @@ const AddArticles = () => {
                 onChange={(e) => setSelectedPublisher(e.target.value)}
               >
                 <option value=''>Select Publisher</option>
-                {publisherData.map((publisher) => (
+                {publisherData.map((publisher: IPublisher) => (
                   <option key={publisher._id} value={publisher.title}>
                     {publisher.title}
                   </option>
@@ -193,7 +209,7 @@ const AddArticles = () => {
             </div>
           </div>
 
-          {/* Description Textarea */}
+          {/* Description */}
           <div className='form-control'>
             <textarea
               {...register('description', {
@@ -222,4 +238,5 @@ const AddArticles = () => {
     </div>
   );
 };
+
 export default AddArticles;

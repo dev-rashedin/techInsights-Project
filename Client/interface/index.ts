@@ -40,6 +40,7 @@ export interface IArticle {
 }
 
 export interface IPublisher {
+  _id: string;
   title: string;
   logo: string;
 }
