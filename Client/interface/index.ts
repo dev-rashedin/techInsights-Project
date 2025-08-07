@@ -71,3 +71,12 @@ export interface DemandingPollOptionProps {
   percentage: string;
   onVote: () => void;
 }
+
+export interface NavItem {
+  to: string;
+  label: string;
+}
+
+export interface ButtonProps {
+  label: string; type: string; onClick?: () => void 
+}

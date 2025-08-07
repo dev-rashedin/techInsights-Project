@@ -1,8 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Fade } from 'react-awesome-reveal';
+import { NavItem } from '../../interface';
 
-const Menu = ({ filteredItems = [] }) => {  
+
+
+const Menu = ({ filteredItems } : {filteredItems : NavItem[]}) => {  
 
   return (
     <Fade cascade damping={0.3}>
@@ -26,8 +28,5 @@ const Menu = ({ filteredItems = [] }) => {
   );
 };
 
-Menu.propTypes = {
-  items: PropTypes.array,
-}
 
 export default Menu;

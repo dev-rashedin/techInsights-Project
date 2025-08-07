@@ -8,6 +8,7 @@ import Zoom from '@mui/material/Zoom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import useLoadUser from '../../hooks/useLoadUser';
+import { NavItem } from '../../../interface';
 
 
 
@@ -21,7 +22,7 @@ const Navbar = () => {
   
   const navigate = useNavigate();
 
-  const items = [
+  const items: NavItem[] = [
     { to: '/', label: 'Home' },
     { to: '/add-Article', label: 'Add Article' },
     { to: '/all-articles', label: 'All Articles' },
@@ -142,7 +143,7 @@ navbar end
                       <img
                         referrerPolicy='no-referrer'
                         className=' mb-2 md:mb-0'
-                        src={user.photoURL}
+                        src={user.photoURL as string}
                         alt='User Pic'
                       />
                     </Tooltip>

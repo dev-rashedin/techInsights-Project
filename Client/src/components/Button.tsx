@@ -1,5 +1,7 @@
 
-const Button = ({ label, type, onClick } : { label: string; type: string; onClick: () => void }) => {
+import { ButtonProps } from './../../interface/index';
+
+const Button = ({ label, type, onClick } : ButtonProps) => {
   let buttonClass =
     'px-4 py-2 rounded-lg hover:rounded-full text-pure-white text-sm lg:text-base font-wendy';
 
