@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { createOrUpdateUser } from '../../api/userApi';
 
 const SocialLogin = () => {
@@ -39,7 +38,7 @@ const SocialLogin = () => {
       toast.success('Sign Up Successful');
 
       navigate(from);
-    } catch (err) {
+    } catch (err : any) {
       //console.log(err);
       toast.error(err.message);
     } finally {
@@ -68,7 +67,7 @@ const SocialLogin = () => {
       toast.success('Sign In Successful');
 
       navigate(from);
-    } catch (err) {
+    } catch (err: any) {
       //console.log(err);
       toast.error(err.message);
     } finally {
