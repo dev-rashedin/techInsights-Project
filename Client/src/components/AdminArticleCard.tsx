@@ -35,7 +35,7 @@ const AdminArticleCard = ({ article, refetch }) => {
 
   // handle admin action
 
-  const handleApproveBtn = async (id) => {
+  const handleApproveBtn = async (id ) => {
     const updatedInfo = { status: 'approved' };
     try {
       const { data } = await axiosSecure.put(`/articles/${id}`, updatedInfo);

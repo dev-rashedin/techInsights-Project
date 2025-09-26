@@ -18,6 +18,7 @@ import votedSectorsRouter from './routes/votedSectors.route';
 import votedLanguagesRouter from './routes/votedLanguages.route';
 import paymentsRouter from './routes/payments.route';
 import { startSubscriptionDowngradeJob } from './cron/subscription.cron';
+import adminRouter from './routes/admin.route';
 
 
 const app: Application = express();
@@ -54,6 +55,7 @@ app.use('/message', messagesRouter);
 app.use('/lang-quiz', votedLanguagesRouter);
 app.use('/demanding-sector', votedSectorsRouter);
 app.use('/', paymentsRouter);
+app.use('/set-admin', adminRouter)
 
 // home route
 app.get('/', (_req: Request, res: Response) => {

@@ -26,9 +26,11 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const from = location?.state || '/';
 
-  const { logInUser, loading, setLoading } = useAuth();
+  const { logInUser } = useAuth();
 
   const {
     register,
