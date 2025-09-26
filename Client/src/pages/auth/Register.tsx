@@ -184,15 +184,15 @@ const Register = () => {
               {loading ? (
                 <ImSpinner9 className='animate-spin m-auto text-deep-ocean' />
               ) : (
-                'Register'
+                'Sign Up'
               )}
             </button>
           </div>
         </form>
-        <p className='text-center text-lg pt-6 pb-4'>
+        <p className='text-center text-lg pt-8 pb-4'>
           Already have an account?{' '}
           <Link className='text-blue-600 font-bold' to='/login'>
-            Login
+            Sign In
           </Link>
         </p>
       </div>

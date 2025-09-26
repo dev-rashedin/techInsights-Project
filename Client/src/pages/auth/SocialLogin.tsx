@@ -77,24 +77,24 @@ const SocialLogin = () => {
 
   return (
     <div>
-      <div className='mt-2 flex flex-col md:flex-row justify-between'>
+      <div className='mt-4 flex flex-col md:flex-row justify-between'>
         <button
           disabled={loading}
           onClick={handleGoogleLogin}
           className='cursor-pointer text-lg flex gap-3 items-center bg-deep-ocean 
-          hover:bg-green-lantern text-pure-white px-8 py-2 rounded-md mb-2 md:mb-0 justify-center disabled:bg-gray-600 disabled:cursor-not-allowed'
+          hover:bg-green-lantern text-pure-white px-8 py-2.5 rounded-md mb-2 md:mb-0 justify-center disabled:bg-gray-600 disabled:cursor-not-allowed'
         >
           <FaGoogle size={21} />
-          <p className='text-base'>Google Login</p>
+          <p className='text-base'>Sign In with Google</p>
         </button>
         <button
           disabled={loading}
           onClick={handleGithubLogin}
           className='cursor-pointer text-lg flex gap-3 items-center bg-deep-ocean 
-          hover:bg-green-lantern text-pure-white px-8 py-2 rounded-md justify-center disabled:bg-gray-600 disabled:cursor-not-allowed'
+          hover:bg-green-lantern text-pure-white px-8 py-2.5 rounded-md justify-center disabled:bg-gray-600 disabled:cursor-not-allowed'
         >
           <FaGithub size={23} />
-          <p className='text-base'>Github Login</p>
+          <p className='text-base'>Sign In with Github</p>
         </button>
       </div>
       <ToastContainer />

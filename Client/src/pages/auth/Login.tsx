@@ -48,6 +48,18 @@ const Login = () => {
     }
   };
 
+  const loginDemoAdmin = async () => {
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        'demo.admin@example.com',
+        'DemoAdmin123!'
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='min-h-screen flex flex-col justify-center'>
       <Helmet>
@@ -93,8 +105,11 @@ const Login = () => {
             {errors.password && (
               <p className='text-red-500 mt-2'>{errors.password.message}</p>
             )}
-            <label className='label'>
-              <a href='#' className='label-text-alt link link-hover text-base'>
+            <label className='mt-3 mb-6'>
+              <a
+                href='#'
+                className=' underline text-sm text-blue-500 hover:text-blue-800 font-semibold'
+              >
                 Forgot password?
               </a>
             </label>
@@ -115,11 +130,14 @@ const Login = () => {
             </button>
           </div>
           <SocialLogin />
+          <button onClick={() => loginDemoAdmin()}>
+            Login as Admin (Demo)
+          </button>
         </form>
-        <p className='text-center py-2 w-3/4 lg:w-1/2 mx-auto text-lg pt-6 pb-4'>
+        <p className='text-center py-2 w-3/4 lg:w-1/2 mx-auto text-lg pt-8 pb-4'>
           Do not have an account{' '}
           <Link className='text-blue-600 font-bold' to='/register'>
-            Register
+            Sign Up
           </Link>
         </p>
         <ToastContainer />
