@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { toast } from 'react-toastify';
 import swalAlert from '../../api/swalAlert';
+import DemoAdminLogin from './DemoAdminLogin';
 
 type FormValues = {
   email: string;
@@ -48,17 +49,7 @@ const Login = () => {
     }
   };
 
-  const loginDemoAdmin = async () => {
-    try {
-      await signInWithEmailAndPassword(
-        auth,
-        'demo.admin@example.com',
-        'DemoAdmin123!'
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
 
   return (
     <div className='min-h-screen flex flex-col justify-center'>
@@ -130,9 +121,7 @@ const Login = () => {
             </button>
           </div>
           <SocialLogin />
-          <button onClick={() => loginDemoAdmin()}>
-            Login as Admin (Demo)
-          </button>
+          <DemoAdminLogin/>
         </form>
         <p className='text-center py-2 w-3/4 lg:w-1/2 mx-auto text-lg pt-8 pb-4'>
           Do not have an account{' '}
