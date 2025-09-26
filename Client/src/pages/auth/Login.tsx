@@ -60,9 +60,10 @@ const Login = () => {
       </Helmet>
       <div>
         <LoginRegisterTitle title='Please Sign In' />
+        <DemoAdminLogin />
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className='w-3/4 lg:w-1/2 max-w-xl mx-auto'
+          className='w-3/4 lg:w-1/2 max-w-xl mx-auto '
         >
           <div className='form-control'>
             <label className='label'>
@@ -123,7 +124,6 @@ const Login = () => {
             </button>
           </div>
           <SocialLogin />
-          <DemoAdminLogin/>
         </form>
         <p className='text-center py-2 w-3/4 lg:w-1/2 mx-auto text-lg pt-8 pb-4'>
           Do not have an account{' '}
@@ -131,6 +131,7 @@ const Login = () => {
             Sign Up
           </Link>
         </p>
+
         <ToastContainer />
       </div>
     </div>

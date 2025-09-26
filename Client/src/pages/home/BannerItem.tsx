@@ -36,8 +36,6 @@ const BannerItem = () => {
       return res.data.data;
     },
   });
-
-  console.log('articles inside banner item',articles)
   
 
 

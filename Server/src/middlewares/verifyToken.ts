@@ -10,7 +10,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   if (!authHeader) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       success: false,
-      message: 'unauthorized access',
+      message: 'unauthorized access inside verifyToken',
     });
   }
 
