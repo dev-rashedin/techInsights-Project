@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import config from '../config/config';
 import jwt from 'jsonwebtoken';
 import { DecodedUser } from '../interface';
-import { StatusCodes } from 'express-error-toolkit';
+import { StatusCodes } from 'http-status-toolkit';
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;

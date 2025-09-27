@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
   EmailAuthProvider,
@@ -12,159 +12,172 @@ import {
   signOut,
   updatePassword,
   updateProfile,
-  User
+  User,
 } from 'firebase/auth';
 import auth from '../firebase/firebase.config';
 import { getASecureRandomPassword } from '../api/utils';
 import { axiosApi } from '../api/axiosApi';
 
-
 // ----------- Types -----------
 export interface AuthContextType {
-  user: User | null
-  loading: boolean
-  setLoading: (loading: boolean) => void
-  createUser: (email: string, password: string) => Promise<any>
-  updateUserProfile: (name: string, photo: string) => Promise<void>
-  logInUser: (email: string, password: string) => Promise<any>
-  logOutUser: () => Promise<void>
-  googleLogin: () => Promise<any>
-  githubLogin: () => Promise<any>
-  updateUserPass: (user: User, currentPassword: string) => Promise<void>
-  resetUserPass: (email: string) => Promise<void>
+  user: User | null;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+  createUser: (email: string, password: string) => Promise<User>;
+  updateUserProfile: (name: string, photo: string) => Promise<void>;
+  logInUser: (email: string, password: string) => Promise<User>;
+  logOutUser: () => Promise<void>;
+  googleLogin: () => Promise<User>;
+  githubLogin: () => Promise<User>;
+  updateUserPass: (user: User, currentPassword: string) => Promise<void>;
+  resetUserPass: (email: string) => Promise<void>;
 }
 
 interface AuthProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
-
-
-
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-// auth Provider
+// Providers
 const googleProvider = new GoogleAuthProvider();
-const githubProvider = new GithubAuthProvider
+const githubProvider = new GithubAuthProvider();
 
-const AuthProvider = ({ children } : AuthProviderProps) => {
+const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // create user
-  const createUser = (email : string, password : string) => {
+  // --- Auth functions ---
+  const createUser = async (email: string, password: string) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      return user;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // update user
-  const updateUserProfile = (name: string, photo: string) => {
+  const updateUserProfile = async (name: string, photo: string) => {
     if (!auth.currentUser) throw new Error('No current user');
-    return updateProfile(auth.currentUser!, {
+    return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
     });
   };
 
-  // login user
-  const logInUser = (email: string, password : string) => {
+  const logInUser = async (email: string, password: string) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      return user;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // google login
-  const googleLogin = () => {
+  const googleLogin = async () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    try {
+      const { user } = await signInWithPopup(auth, googleProvider);
+      return user;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // github login
-  const githubLogin = () => {
+  const githubLogin = async () => {
     setLoading(true);
-    return signInWithPopup(auth, githubProvider);
+    try {
+      const { user } = await signInWithPopup(auth, githubProvider);
+      return user;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // update password
- const updateUserPass = async (user : User, currentPassword : string) => {
-   const newPassword = getASecureRandomPassword(); // Generate a secure random password
-   setLoading(true);
-
-   try {
-     // Create the credential using email and current password
-     const credential = EmailAuthProvider.credential(
-       user.email!,
-       currentPassword
-     );
-
-     // Step 1: Re-authenticate the user with the credential (their email and current password)
-     await reauthenticateWithCredential(user, credential);
-
-     // Step 2: After re-authentication, update the password
-     await updatePassword(user, newPassword);
-   } catch (error) {
-     console.error('Error updating password:', error);   
-   } finally {
-     setLoading(false);
-   }
- };
-
-  // reset pass with email
-  const resetUserPass = (email : string) => {
-    setLoading(true)
-    return sendPasswordResetEmail(auth, email);
-  }
-
-  // sign out
-  const logOutUser = () => {
+  const logOutUser = async () => {
     setLoading(true);
-    return signOut(auth);
+    try {
+      return await signOut(auth);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const updateUserPass = async (user: User, currentPassword: string) => {
+    const newPassword = getASecureRandomPassword();
+    setLoading(true);
+    try {
+      const credential = EmailAuthProvider.credential(
+        user.email!,
+        currentPassword
+      );
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword);
+    } catch (error) {
+      console.error('Error updating password:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  const resetUserPass = async (email: string) => {
+    setLoading(true);
+    try {
+      return await sendPasswordResetEmail(auth, email);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // set a observer
-  useEffect( () => {
-    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+  // --- Observer for auth state ---
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      // console.log(currentUser)
+      setLoading(true);
 
-      if (currentUser) {
-        // get token and store client
-        const userInfo = { email: currentUser.email };
-        axiosApi.post('/jwt', userInfo)
-          .then((res) => {
-          if (res.data.token) {
+      try {
+        if (currentUser?.email) {
+          const res = await axiosApi.post('/jwt', { email: currentUser.email });
+          if (res.data?.token) {
             localStorage.setItem('access-token', res.data.token);
-            setLoading(false);
           }
-        });
-      } else {
-        // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
-        localStorage.removeItem('access-token');
+        } else {
+          localStorage.removeItem('access-token');
+        }
+      } catch (error) {
+        console.error('JWT fetch error:', error);
+      } finally {
         setLoading(false);
       }
-    }
-    
-    );
+    });
 
-    return () => unSubscribe();
+    return () => unsubscribe();
   }, []);
 
-
-
-  const authInfo = {
-    user,
-    loading,
-    setLoading,
-    createUser,
-    updateUserProfile,
-    logInUser,
-    logOutUser,
-    googleLogin,
-    githubLogin,
-    updateUserPass,
-    resetUserPass,
-  };
+  // --- Memoized context ---
+  const authInfo: AuthContextType = useMemo(
+    () => ({
+      user,
+      loading,
+      setLoading,
+      createUser,
+      updateUserProfile,
+      logInUser,
+      logOutUser,
+      googleLogin,
+      githubLogin,
+      updateUserPass,
+      resetUserPass,
+    }),
+    [user, loading]
+  );
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
